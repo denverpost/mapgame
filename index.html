@@ -22,12 +22,16 @@
     <script>
 function initialize() 
 {
-    var centerlatlng = new google.maps.LatLng(0, 0);
-    var myLatlng = new google.maps.LatLng();
+    var config = { 
+        'target_type': 'latlng',
+        'target': new google.maps.LatLng(0, 0),
+        'centerlatlng': new google.maps.LatLng(0, 0)
+    };
+
     var mapOptions = 
     {
         zoom: 3,
-        center: centerlatlng,
+        center: config.centerlatlng,
         disableDefaultUI : true,
         mapTypeId: google.maps.MapTypeId.SATELLITE
     }
@@ -35,15 +39,27 @@ function initialize()
 
     var marker = new google.maps.Marker(
     {
-        position: centerlatlng,
+        position: config.centerlatlng,
         map: map,
         draggable: true,
         title: 'Your Guess'
     });
+
+    google.maps.event.addListener(marker, 'mouseup', function () {
+        // If the marker hasn't been moved we don't want to do anything:
+        if ( config.centerlatlng.B == this.position.B && config.centerlatlng.k == this.position.k )
+        {
+            return false;
+        }
+    
+        // Check how far the click was from the target.
+        // There are two types of target checks: Lat-Long, used for small cities or foreign cities
+        // (cities smaller than five miles wide, or cities we don't have boundary data for), and
+        // boundary target checks. For boundary checks we need the KML string for the boundary.
+    });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
     </script>
     <div id="map-canvas"></div>
 </body>
