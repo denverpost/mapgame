@@ -22,9 +22,10 @@
     <script>
 function initialize() 
 {
-    var config = { 
+    var config = 
+    { 
         'target_type': 'latlng',
-        'target': new google.maps.LatLng(0, 0),
+        'target': new google.maps.LatLng(27.175015 , 78.042155),
         'centerlatlng': new google.maps.LatLng(0, 0)
     };
 
@@ -45,7 +46,8 @@ function initialize()
         title: 'Your Guess'
     });
 
-    google.maps.event.addListener(marker, 'mouseup', function () {
+    google.maps.event.addListener(marker, 'mouseup', function() 
+    {
         // If the marker hasn't been moved we don't want to do anything:
         if ( config.centerlatlng.B == this.position.B && config.centerlatlng.k == this.position.k )
         {
@@ -56,10 +58,24 @@ function initialize()
         // There are two types of target checks: Lat-Long, used for small cities or foreign cities
         // (cities smaller than five miles wide, or cities we don't have boundary data for), and
         // boundary target checks. For boundary checks we need the KML string for the boundary.
+        if ( config.target_type == 'latlng' )
+        {
+            
+        }
     });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+function great_circle()
+{
+
+}
+
+function log_answer(slug, distance)
+{
+    // Send a request to a remote server to log how far the guess was from the mark
+}
     </script>
     <div id="map-canvas"></div>
 </body>
