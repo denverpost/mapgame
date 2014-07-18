@@ -14,11 +14,9 @@ First, you need a webserver running on your computer. We're running a webserver 
 # TODO
 - [ ] DEV: Build testing environment
 - [ ] DEV: Write instructions on how to use testing environment
-- [ ] MAP: Build blank map
-- [ ] MAP: Specify map center
-- [ ] MAP: Specify map zoom
+- [x] MAP: Build blank map
 - [ ] MAP: Specify map size
-- [ ] GAME: Get location of map click
+- [ ] GAME: Get location of dragged map marker
 - [ ] GAME: Calculate distance (miles/km) from city point
 - [ ] MAP: In case we're guessing a country's location, allow using boundary file (KML?) as target location
 - [ ] GAME: Calculate distance (miles/km) from country boundary
