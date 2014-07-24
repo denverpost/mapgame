@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Blank Page</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/$/1/$.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <style type="text/css" media="screen">
 </style>
 </head>
@@ -60,7 +60,10 @@ function initialize()
         // boundary target checks. For boundary checks we need the KML string for the boundary.
         if ( config.target_type == 'latlng' )
         {
-            
+            // k is lat, B is long in Google maps.
+            distance = great_circle(config.centerlatlng.k, this.position.k, config.centerlatlng.B, this.position.B);
+            $('#result').text('Your guess landed ' + distance + ' miles from the target');
+            console.log(distance, ' miles');
         }
     });
 }
@@ -80,7 +83,7 @@ function great_circle(lat1, lon1, lat2, lon2)
     var dLat = Math.radians(lat2-lat1);
     var dLon = Math.radians(lon2-lon1);
     var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
+            Math.cos(Math.radians(lat1)) * Math.cos(Math.radians(lat2)) * 
             Math.sin(dLon/2) * Math.sin(dLon/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c;
@@ -92,6 +95,7 @@ function log_answer(slug, distance)
     // Send a request to a remote server to log how far the guess was from the mark
 }
     </script>
+    <h5 id="result"></h5>
     <div id="map-canvas"></div>
 </body>
 </html>
