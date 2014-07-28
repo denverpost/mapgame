@@ -16,10 +16,10 @@ First, you need a webserver running on your computer. We're running a webserver 
 
 
 # TODO
-- [ ] DEV: Build testing environment
 - [ ] DEV: Write instructions on how to use testing environment
 - [x] MAP: Build blank map
 - [ ] MAP: Specify map size
+- [ ] MAP: Pass config variables (miles/km, whether to log to server, URL to log against)
 - [X] GAME: Get location of dragged map marker
 - [X] GAME: Calculate distance (miles/km) from city point
 - [ ] MAP: In case we're guessing a country's location, allow using boundary file (KML?) as target location
