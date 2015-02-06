@@ -20,60 +20,61 @@
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
-function initialize() 
-{
-    var config = 
+var mapg = {
+    config: 
     { 
-        'target_type': 'latlng',
-        'target': new google.maps.LatLng(27.175015 , 78.042155),
-        'centerlatlng': new google.maps.LatLng(0, 0)
-    };
-
-    var mapOptions = 
+        target_type: 'latlng',
+        target: new google.maps.LatLng(27.175015 , 78.042155),
+        centerlatlng: new google.maps.LatLng(0, 0)
+    },
+    mapOptions: 
     {
         zoom: 3,
         center: config.centerlatlng,
         disableDefaultUI : true,
         mapTypeId: google.maps.MapTypeId.SATELLITE
+    },
+    init: function ()
+    {
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        var marker = new google.maps.Marker(
+        {
+            position: config.centerlatlng,
+            map: map,
+            draggable: true,
+            title: 'Your Guess'
+        });
+
+        google.maps.event.addListener(marker, 'mouseup', function() 
+        {
+            // If the marker hasn't been moved we don't want to do anything:
+            if ( config.centerlatlng.B == this.position.B && config.centerlatlng.k == this.position.k )
+            {
+                return false;
+            }
+        
+            // Check how far the click was from the target.
+            // There are two types of target checks: Lat-Long, used for small cities or foreign cities
+            // (cities smaller than five miles wide, or cities we don't have boundary data for), and
+            // boundary target checks. For boundary checks we need the KML string for the boundary.
+            if ( config.target_type == 'latlng' )
+            {
+                // k is lat, B is long in Google maps.
+                distance = great_circle(config.centerlatlng.k, this.position.k, config.centerlatlng.B, this.position.B);
+                $('#result').text('Your guess landed ' + distance + ' miles from the target');
+                console.log(distance, ' miles');
+            }
+        });
+    //var boundary = new google.maps.KmlLayer({
+        //url: 'http://www.colorado.gov/maps/ez/cntybnd2001v5.kml'
+        //url: 'http://www2.census.gov/geo/tiger/GENZ2013/cb_2013_us_nation_500k.kmz'
+        //url: 'state_montana.kml'
+    //  });
+        var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
+        boundary.setMap(map);
+        console.log(boundary);
     }
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-    var marker = new google.maps.Marker(
-    {
-        position: config.centerlatlng,
-        map: map,
-        draggable: true,
-        title: 'Your Guess'
-    });
-
-    google.maps.event.addListener(marker, 'mouseup', function() 
-    {
-        // If the marker hasn't been moved we don't want to do anything:
-        if ( config.centerlatlng.B == this.position.B && config.centerlatlng.k == this.position.k )
-        {
-            return false;
-        }
-    
-        // Check how far the click was from the target.
-        // There are two types of target checks: Lat-Long, used for small cities or foreign cities
-        // (cities smaller than five miles wide, or cities we don't have boundary data for), and
-        // boundary target checks. For boundary checks we need the KML string for the boundary.
-        if ( config.target_type == 'latlng' )
-        {
-            // k is lat, B is long in Google maps.
-            distance = great_circle(config.centerlatlng.k, this.position.k, config.centerlatlng.B, this.position.B);
-            $('#result').text('Your guess landed ' + distance + ' miles from the target');
-            console.log(distance, ' miles');
-        }
-    });
-//var boundary = new google.maps.KmlLayer({
-    //url: 'http://www.colorado.gov/maps/ez/cntybnd2001v5.kml'
-    //url: 'http://www2.census.gov/geo/tiger/GENZ2013/cb_2013_us_nation_500k.kmz'
-    //url: 'state_montana.kml'
-//  });
-    var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
-    boundary.setMap(map);
-    console.log(boundary);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
