@@ -30,17 +30,17 @@ var mapg = {
     mapOptions: 
     {
         zoom: 3,
-        center: config.centerlatlng,
-        disableDefaultUI : true,
+        center: new google.maps.LatLng(0, 0),
+        disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.SATELLITE
     },
     init: function ()
     {
-        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        var map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
 
         var marker = new google.maps.Marker(
         {
-            position: config.centerlatlng,
+            position: this.config.centerlatlng,
             map: map,
             draggable: true,
             title: 'Your Guess'
@@ -58,10 +58,10 @@ var mapg = {
             // There are two types of target checks: Lat-Long, used for small cities or foreign cities
             // (cities smaller than five miles wide, or cities we don't have boundary data for), and
             // boundary target checks. For boundary checks we need the KML string for the boundary.
-            if ( config.target_type == 'latlng' )
+            if ( this.config.target_type == 'latlng' )
             {
                 // k is lat, B is long in Google maps.
-                distance = great_circle(config.centerlatlng.k, this.position.k, config.centerlatlng.B, this.position.B);
+                distance = great_circle(this.config.centerlatlng.k, this.position.k, this.config.centerlatlng.B, this.position.B);
                 $('#result').text('Your guess landed ' + distance + ' miles from the target');
                 console.log(distance, ' miles');
             }
@@ -75,9 +75,9 @@ var mapg = {
         boundary.setMap(map);
         console.log(boundary);
     }
-}
+};
 
-google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addDomListener(window, 'load', mapg.init());
 
 Math.radians = function (degrees)
 {
