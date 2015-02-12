@@ -6,6 +6,7 @@ var mapg = {
         target_name: '',
         target_type: 'latlng',
         unit: 'miles', // miles or km
+        zoom: 6,
         target: new google.maps.LatLng(27.175015 , 78.042155),
         centerlatlng: new google.maps.LatLng(0, 0)
     },
@@ -18,6 +19,11 @@ var mapg = {
                 this.config[key] = config[key];
             }
         }
+
+        // Zoom and center are something that goes in the mapg.mapOptions object,
+        // so we update that separately.
+        this.mapOptions.zoom = this.config.zoom;
+        this.mapOptions.center = this.config.centerlatlng;
     },
     mapOptions: 
     {
