@@ -26,6 +26,24 @@ var mapg = {
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.SATELLITE
     },
+    log_answer: function (slug, distance)
+    {
+        // Send a request to a remote server to log how far the guess was from the mark
+    },
+    great_circle: function (lat1, lon1, lat2, lon2)
+    {
+        // Calculate the distance between two sets of lat/longs.
+        // Cribbed from http://stackoverflow.com/questions/5260423/torad-javascript-function-throwing-error/7179026#7179026
+        var R = 3958.7558657440545; // Radius of earth in Miles
+        var dLat = Math.radians(lat2-lat1);
+        var dLon = Math.radians(lon2-lon1);
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(Math.radians(lat1)) * Math.cos(Math.radians(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c;
+        return d;
+    },
     init: function ()
     {
         // Config handling. External config objects must be named mapg_config
@@ -59,19 +77,14 @@ var mapg = {
             if ( this.config.target_type == 'latlng' )
             {
                 // k is lat, B is long in Google maps.
-                distance = great_circle(this.config.centerlatlng.k, this.position.k, this.config.centerlatlng.B, this.position.B);
+                distance = this.great_circle(this.config.centerlatlng.k, this.position.k, this.config.centerlatlng.B, this.position.B);
                 $('#result').text('Your guess landed ' + distance + ' miles from the target');
                 console.log(distance, ' miles');
             }
         });
-    //var boundary = new google.maps.KmlLayer({
-        //url: 'http://www.colorado.gov/maps/ez/cntybnd2001v5.kml'
-        //url: 'http://www2.census.gov/geo/tiger/GENZ2013/cb_2013_us_nation_500k.kmz'
-        //url: 'state_montana.kml'
-    //  });
         var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
         //boundary.setMap(map);
-        console.log(boundary);
+        //console.log(boundary);
     }
 };
 
@@ -82,22 +95,3 @@ Math.radians = function (degrees)
     return degrees * (Math.PI / 180);
 }
 
-function great_circle(lat1, lon1, lat2, lon2)
-{
-    // Calculate the distance between two sets of lat/longs.
-    // Cribbed from http://stackoverflow.com/questions/5260423/torad-javascript-function-throwing-error/7179026#7179026
-    var R = 3958.7558657440545; // Radius of earth in Miles
-    var dLat = Math.radians(lat2-lat1);
-    var dLon = Math.radians(lon2-lon1);
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(Math.radians(lat1)) * Math.cos(Math.radians(lat2)) * 
-            Math.sin(dLon/2) * Math.sin(dLon/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c;
-    return d;
-}
-
-function log_answer(slug, distance)
-{
-    // Send a request to a remote server to log how far the guess was from the mark
-}
