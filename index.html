@@ -19,8 +19,19 @@
         }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script>
-    </script>
+<script>
+    var mapg_config = 
+    { 
+        log_guesses: 1,
+        log_url: '',
+        target_name: '',
+        target_type: 'latlng',
+        unit: 'miles', // miles or km
+        target: new google.maps.LatLng(27.175015 , 78.042155),
+        centerlatlng: new google.maps.LatLng(27.175015 , 78.042155)
+    };
+</script>
+    <script src="mapgame.js"></script>
     <h5 id="result"></h5>
     <div id="map-canvas"></div>
 </body>

@@ -1,13 +1,23 @@
 var mapg = {
     config: 
     { 
-        log_guesses: False,
+        log_guesses: 0,
         log_url: '',
         target_name: '',
         target_type: 'latlng',
         unit: 'miles', // miles or km
         target: new google.maps.LatLng(27.175015 , 78.042155),
-        centerlatlng: new google.maps.LatLng(27.175015 , 78.042155)
+        centerlatlng: new google.maps.LatLng(0, 0)
+    },
+    update_config: function (config) {
+        // Take an external config object and update this config object.
+        for ( var key in config )
+        {
+            if ( config.hasOwnProperty(key) )
+            {
+                this.config[key] = config[key];
+            }
+        }
     },
     mapOptions: 
     {
@@ -18,6 +28,12 @@ var mapg = {
     },
     init: function ()
     {
+        // Config handling. External config objects must be named mapg_config
+        if ( typeof window.mapg_config !== 'undefined' )
+        {
+            this.update_config(mapg_config);
+        }
+
         var map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
 
         var marker = new google.maps.Marker(
