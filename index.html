@@ -77,7 +77,7 @@ var mapg = {
     }
 };
 
-google.maps.event.addDomListener(window, 'load', mapg.init());
+$(document).ready( function () { mapg.init(); });
 
 Math.radians = function (degrees)
 {
