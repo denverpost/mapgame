@@ -34,9 +34,38 @@ var mapg = {
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.SATELLITE
     },
-    log_answer: function (slug, distance)
+    slugify: function(str)
+    {
+        // Cribbed from https://github.com/andrefarzat/slugify/blob/master/slugify.js
+        var from = 'àáäãâèéëêìíïîòóöôõùúüûñç·/_,:;',
+        to = 'aaaaaeeeeiiiiooooouuuunc------';
+
+        var i = 0,
+            len = from.length;
+        
+        str = str.toLowerCase();
+
+        for( ; i < len; i++ ){
+            str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+        }
+
+        return str.replace(/^\s+|\s+$/g, '') //trim
+            .replace(/[^-a-zA-Z0-9\s]+/ig, '')
+            .replace(/\s/gi, "-");
+    },
+    build_slug: function ()
+    {
+        // Put together the slug of a map -- a name we can refer to.
+        return this.slugify(this.config.target_name) + '_' + this.config.unit;
+    },
+    slug: '',
+    log_answer: function (distance)
     {
         // Send a request to a remote server to log how far the guess was from the mark
+        if ( this.config.log_guesses !== 0 )
+        {
+
+        }
     },
     great_circle: function (lat1, lon1, lat2, lon2)
     {
@@ -59,6 +88,7 @@ var mapg = {
         {
             this.update_config(mapg_config);
         }
+        this.slug = this.build_slug();
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
 
@@ -89,6 +119,7 @@ var mapg = {
                 var distance_rounded = Math.round(distance);
                 $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target');
                 console.log(distance, ' miles');
+                parent.mapg.log_answer(distance_rounded);
             }
         });
         //var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
