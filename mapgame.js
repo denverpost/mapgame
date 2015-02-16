@@ -63,7 +63,7 @@ var mapg = {
 
         var marker = new google.maps.Marker(
         {
-            position: this.config.centerlatlng,
+            position: parent.mapg.config.centerlatlng,
             map: map,
             draggable: true,
             title: 'Your Guess'
@@ -72,8 +72,7 @@ var mapg = {
         google.maps.event.addListener(marker, 'mouseup', function() 
         {
             // If the marker hasn't been moved we don't want to do anything:
-console.log(parent.mapg.config);
-            if ( parent.mapg.config.centerlatlng.B == this.position.B && this.config.centerlatlng.k == this.position.k )
+            if ( parent.mapg.config.centerlatlng.D == this.position.D && this.config.centerlatlng.k == this.position.k )
             {
                 return false;
             }
@@ -82,10 +81,10 @@ console.log(parent.mapg.config);
             // There are two types of target checks: Lat-Long, used for small cities or foreign cities
             // (cities smaller than five miles wide, or cities we don't have boundary data for), and
             // boundary target checks. For boundary checks we need the KML string for the boundary.
-            if ( this.config.target_type == 'latlng' )
+            if ( parent.mapg.config.target_type == 'latlng' )
             {
                 // k is lat, B is long in Google maps.
-                distance = this.great_circle(this.config.centerlatlng.k, this.position.k, this.config.centerlatlng.B, this.position.B);
+                distance = parent.mapg.great_circle(parent.mapg.config.centerlatlng.k, this.position.k, parent.mapg.config.centerlatlng.D, this.position.D);
                 $('#result').text('Your guess landed ' + distance + ' miles from the target');
                 console.log(distance, ' miles');
             }
