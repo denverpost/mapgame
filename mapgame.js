@@ -1,5 +1,6 @@
 var mapg = {
     parent: this,
+    in_dev: 0,
     config: 
     { 
         log_guesses: 0,
@@ -83,8 +84,8 @@ var mapg = {
             // boundary target checks. For boundary checks we need the KML string for the boundary.
             if ( parent.mapg.config.target_type == 'latlng' )
             {
-                // k is lat, B is long in Google maps.
-                distance = parent.mapg.great_circle(parent.mapg.config.centerlatlng.k, this.position.k, parent.mapg.config.centerlatlng.D, this.position.D);
+                // k is lat, D is long in Google maps.
+                distance = parent.mapg.great_circle(parent.mapg.config.centerlatlng.k, parent.mapg.config.centerlatlng.D, this.position.k, this.position.D);
                 $('#result').text('Your guess landed ' + distance + ' miles from the target');
                 console.log(distance, ' miles');
             }
