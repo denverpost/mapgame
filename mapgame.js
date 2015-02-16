@@ -18,6 +18,7 @@ var mapg = {
         {
             if ( config.hasOwnProperty(key) )
             {
+console.log(key);
                 this.config[key] = config[key];
             }
         }
