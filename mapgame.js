@@ -1,4 +1,5 @@
 var mapg = {
+    parent: this,
     config: 
     { 
         log_guesses: 0,
@@ -71,7 +72,8 @@ var mapg = {
         google.maps.event.addListener(marker, 'mouseup', function() 
         {
             // If the marker hasn't been moved we don't want to do anything:
-            if ( config.centerlatlng.B == this.position.B && config.centerlatlng.k == this.position.k )
+console.log(parent.mapg.config);
+            if ( parent.mapg.config.centerlatlng.B == this.position.B && this.config.centerlatlng.k == this.position.k )
             {
                 return false;
             }
@@ -88,16 +90,16 @@ var mapg = {
                 console.log(distance, ' miles');
             }
         });
-        var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
+        //var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
         //boundary.setMap(map);
         //console.log(boundary);
     }
 };
-
-$(document).ready( function () { mapg.init(); });
 
 Math.radians = function (degrees)
 {
     return degrees * (Math.PI / 180);
 }
 
+
+$(document).ready( function () { mapg.init(); });
