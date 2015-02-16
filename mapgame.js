@@ -85,8 +85,9 @@ var mapg = {
             if ( parent.mapg.config.target_type == 'latlng' )
             {
                 // k is lat, D is long in Google maps.
-                distance = parent.mapg.great_circle(parent.mapg.config.centerlatlng.k, parent.mapg.config.centerlatlng.D, this.position.k, this.position.D);
-                $('#result').text('Your guess landed ' + distance + ' miles from the target');
+                var distance = parent.mapg.great_circle(parent.mapg.config.centerlatlng.k, parent.mapg.config.centerlatlng.D, this.position.k, this.position.D);
+                var distance_rounded = Math.round(distance);
+                $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target');
                 console.log(distance, ' miles');
             }
         });
