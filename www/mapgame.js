@@ -64,7 +64,7 @@ var mapg = {
         // Send a request to a remote server to log how far the guess was from the mark
         if ( this.config.log_guesses !== 0 )
         {
-            var params = '?distance=' + distance + '&callback=';
+            var params = '?slug=' + this.slug + '&distance=' + distance + '&callback=';
             var jqxhr = $.getJSON( this.config.log_url + params, function(data) 
             {
                 // Success
