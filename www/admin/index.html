@@ -20,7 +20,15 @@
         #map-canvas { width: 75%; margin: auto; }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script>
+<h2>1. <a href="http://www.latlong.net/">Generate a lat and long here</a></h2>
+<h2>2. Take the values and paste them below:</h2>
+<form id="mapgame" action="./index.php" method="GET">
+    <input type="text" id="name" value="" maxlength="50" />
+    <input type="text" id="lat" value="" maxlength="50" />
+    <input type="text" id="long" value="" maxlength="50" />
+<h2>3. Copy the script below into a new article</h2>
+<pre>
+&lt;script>
 $(document).ready( function () { 
     mapg_config = 
     { 
@@ -33,9 +41,8 @@ $(document).ready( function () {
         centerlatlng: new google.maps.LatLng(27.175015 , 78.042155)
     };
 });
-</script>
-    <script src="mapgame.js"></script>
-    <h5 id="result"></h5>
-    <div id="map-canvas"></div>
+&lt;/script>
+</pre>
+</form>
 </body
 </html>
