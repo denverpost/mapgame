@@ -1,1 +1,41 @@
-hey
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Map Game Admin</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<style type="text/css" media="screen">
+</style>
+</head>
+<body>
+<h1>Map Game Admin</h1>
+    <style>
+        html, body, #map-canvas 
+        {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        }
+        #map-canvas { width: 75%; margin: auto; }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script>
+$(document).ready( function () { 
+    mapg_config = 
+    { 
+        log_guesses: 1,
+        log_url: '',
+        target_name: '',
+        target_type: 'latlng',
+        unit: 'miles', // miles or km
+        target: new google.maps.LatLng(27.175015 , 78.042155),
+        centerlatlng: new google.maps.LatLng(27.175015 , 78.042155)
+    };
+});
+</script>
+    <script src="mapgame.js"></script>
+    <h5 id="result"></h5>
+    <div id="map-canvas"></div>
+</body
+</html>
