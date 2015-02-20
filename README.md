@@ -1,5 +1,5 @@
 # Map Game
-Make a "Where Is X (Country / City) On The Map?" game.
+Make a "Where Is X (Country / City / Point of Interest) On The Map?" game.
 
 # Getting Started
 # Usage
