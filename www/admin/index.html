@@ -5,13 +5,8 @@
 <title>Map Game Admin</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <style type="text/css" media="screen"></style>
-<!--
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
--->
-<script type="text/javascript">
-google.load('maps', '2'); // Load version 2 of the Maps API
-
-
+<script>
 function timezoneLoaded(obj) {
     var timezone = obj.timezoneId;
     if (!timezone) {
@@ -41,34 +36,19 @@ function updateLatLonFields(lat, lon) {
 }
 
 function showMap() {
-    window.gmap = new google.maps.Map2(document.getElementById('gmap'));
-    gmap.addControl(new google.maps.LargeMapControl());
-    gmap.addControl(new google.maps.MapTypeControl());
-    gmap.enableContinuousZoom();
-    gmap.enableScrollWheelZoom();
-    
+var mapOptions =
+{
+    zoom: 8,
+    center: new google.maps.LatLng(0, 0),
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.SATELLITE
+};
+window.gmap = new google.maps.Map(document.getElementById('gmap'), mapOptions);
     var timer = null;
     
     google.maps.Event.addListener(gmap, "move", function() {
         var center = gmap.getCenter();
         updateLatLonFields(center.lat(), center.lng());
-        
-        // Wait a second, then figure out the timezone
-        if (timer) {
-            clearTimeout(timer);
-            timer = null;
-        }
-        timer = setTimeout(function() {
-            document.getElementById('timezonep').style.display = 'none';
-            document.getElementById('datetimep').style.display = 'none';
-            // Look up the timezone using geonames
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src = "http://ws.geonames.org/timezoneJSON?lat=" + center.lat() +
-                "&lng=" + center.lng() + "&callback=timezoneLoaded";
-            document.getElementsByTagName("head")[0].appendChild(s);
-        }, 1500);
-        
     });
     google.maps.Event.addListener(gmap, "zoomend", function(oldZoom, newZoom) {
         document.getElementById("zoom").innerHTML = newZoom;
@@ -156,15 +136,9 @@ function geocode(location) {
     geocoder.getLocations(location, geocodeComplete);
 }
 
-google.setOnLoadCallback(showMap);
-
-function updateCaption(input)
-{
-    document.getElementById("caption").innerHTML = input.value;
-}
 </script>
 </head>
-<body id="hd">
+<body id="hd" onload="showMap();">
 <h1>Map Game Admin</h1>
     <style>
         html, body, #map-canvas 
@@ -225,7 +199,7 @@ div#crosshair {
     </style>
 <h2>1. <a href="http://www.latlong.net/">Generate a lat and long here</a></h2>
 <h2>2. Take the values and paste them below:</h2>
-<form id="geocodeForm" action="./index.php" method="GET">
+<form id="geocodeForm" action="http://maps.google.com/maps">
             <p>
                 <label for="geocodeInput">Place name: </label>
                 <input type="text" name="q" id="geocodeInput">
@@ -238,6 +212,8 @@ div#crosshair {
         <div id="gmap"></div>
         <div id="crosshair"></div>
     </div>
+</form>
+<form id="mapgame" action="./index.php" method="GET">
     <input type="text" id="name" value="" maxlength="50" />
     <input type="text" id="lat" value="" maxlength="50" />
     <input type="text" id="long" value="" maxlength="50" />
@@ -249,11 +225,11 @@ $(document).ready( function () {
     { 
         log_guesses: 1,
         log_url: '',
-        target_name: '',
+        target_name: '<span id="form_name"></span>',
         target_type: 'latlng',
         unit: 'miles', // miles or km
-        target: new google.maps.LatLng(27.175015 , 78.042155),
-        centerlatlng: new google.maps.LatLng(27.175015 , 78.042155)
+        target: new google.maps.LatLng(<span id="form_target">27.175015 , 78.042155</span>),
+        centerlatlng: new google.maps.LatLng(<span id="form_center">27.175015 , 78.042155</span>)
     };
 });
 &lt;/script>
