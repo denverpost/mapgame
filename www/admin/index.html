@@ -36,16 +36,17 @@ function updateLatLonFields(lat, lon) {
 }
 
 function showMap() {
-var mapOptions =
-{
-    zoom: 8,
-    center: new google.maps.LatLng(0, 0),
-    disableDefaultUI: true,
-    mapTypeId: google.maps.MapTypeId.SATELLITE
-};
-window.gmap = new google.maps.Map(document.getElementById('gmap'), mapOptions);
+    var mapOptions =
+    {
+        zoom: 5,
+        center: new google.maps.LatLng(39.74068936038659, -104.98829126358032),
+        disableDefaultUI: true,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    window.gmap = new google.maps.Map(document.getElementById('gmap'), mapOptions);
     var timer = null;
     
+/*
     google.maps.Event.addListener(gmap, "move", function() {
         var center = gmap.getCenter();
         updateLatLonFields(center.lat(), center.lng());
@@ -59,49 +60,26 @@ window.gmap = new google.maps.Map(document.getElementById('gmap'), mapOptions);
             gmap.zoomIn();
         }
     );
-    
-    // Default view of the world
-    gmap.setCenter(
-        new google.maps.LatLng(39.74068936038659, -104.98829126358032), 7
-    );
-    
-    /* If we have a best-guess for the user's location based on their IP, 
-       show a "zoom to my location" link */
-    if (google.loader.ClientLocation) {
-        var link = document.createElement('a');
-        link.onclick = function() {
-            gmap.setCenter(
-                new google.maps.LatLng(
-                    google.loader.ClientLocation.latitude,
-                    google.loader.ClientLocation.longitude
-                ), 8
-            );
-            return false;
-        }
-        link.href = '#'
-        link.appendChild(
-            document.createTextNode('Zoom to my location (by IP)')
-        );
-        var form = document.getElementById('geocodeForm');
-        var p = form.getElementsByTagName('p')[0];
-        p.appendChild(link);
-    }
+*/
     
     // Set up Geocoder
-    window.geocoder = new google.maps.ClientGeocoder();
+    window.geocoder = new google.maps.Geocoder();
+    console.log(window.geocoder);
     
     // If query string was provided, geocode it
     var bits = window.location.href.split('?');
     if (bits[1]) {
         var location = decodeURI(bits[1]);
         document.getElementById('geocodeInput').value = location;
-        geocode(location);
+        var input = { address: location };
+        geocode(input);
     }
     
     // Set up the form
     var geocodeForm = document.getElementById('geocodeForm');
     geocodeForm.onsubmit = function() {
-        geocode(document.getElementById('geocodeInput').value);
+        var input = { address: document.getElementById('geocodeInput').value };
+        geocode(input);
         return false;
     }
 }
@@ -119,21 +97,22 @@ var accuracyToZoomLevel = [
     17  // 9 - Premise
 ];
 
-function geocodeComplete(result) {
-    if (result.Status.code != 200) {
-        alert('Could not geocode "' + result.name + '"');
+function geocodeComplete(result, status) {
+    if ( status !== google.maps.GeocoderStatus.OK ) {
+        alert('Could not geocode "' + result[0].formatted_address + '"');
         return;
     }
-    var placemark = result.Placemark[0]; // Only use first result
-    var accuracy = placemark.AddressDetails.Accuracy;
-    var zoomLevel = accuracyToZoomLevel[accuracy] || 1;
-    var lon = placemark.Point.coordinates[0];
-    var lat = placemark.Point.coordinates[1];
-    gmap.setCenter(new google.maps.LatLng(lat, lon), zoomLevel);
+    var placemark = result[0]; // Only use first result
+    //var accuracy = placemark.AddressDetails.Accuracy;
+    //var zoomLevel = accuracyToZoomLevel[accuracy] || 1;
+    var zoomLevel = 10;
+    var lon = placemark.geometry.location.D;
+    var lat = placemark.geometry.location.k;
+    window.gmap.setCenter(new google.maps.LatLng(lat, lon), zoomLevel);
 }
 
-function geocode(location) {
-    geocoder.getLocations(location, geocodeComplete);
+function geocode(input) {
+    geocoder.geocode(input, geocodeComplete);
 }
 
 </script>
@@ -199,7 +178,8 @@ div#crosshair {
     </style>
 <h2>1. <a href="http://www.latlong.net/">Generate a lat and long here</a></h2>
 <h2>2. Take the values and paste them below:</h2>
-<form id="geocodeForm" action="http://maps.google.com/maps">
+<form id="ageocodeForm" action="http://maps.google.com/maps"></form>
+<form id="geocodeForm" action="#">
             <p>
                 <label for="geocodeInput">Place name: </label>
                 <input type="text" name="q" id="geocodeInput">
