@@ -54,13 +54,24 @@ function showMap() {
         var zoom = gmap.getZoom();
         $("#form_zoom").text(zoom);
     });
-/*
-    google.maps.Event.addDomListener(document.getElementById('crosshair'),
+
+    // This logic handles marker placement.
+    // The marker is the target people are guessing for.
+    // The marker should be draggable **TODO**
+    google.maps.event.addDomListener(gmap,
         'dblclick', function() {
-            gmap.zoomIn();
+            // We only want to create one marker.
+            if ( typeof window.marker == 'undefined' )
+            {
+                var marker = new google.maps.Marker({
+                    position: window.gmap.getCenter(),
+                    map: window.gmap,
+                    title: 'Click to zoom'
+                });
+                window.marker = marker;
+            }
         }
     );
-*/
     
     // Set up Geocoder
     window.geocoder = new google.maps.Geocoder();
