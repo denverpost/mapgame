@@ -5,7 +5,7 @@
 <title>Map Game Admin</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <style type="text/css" media="screen"></style>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 <script>
 function timezoneLoaded(obj) {
     var timezone = obj.timezoneId;
@@ -29,10 +29,10 @@ function timeLoaded(obj) {
 }
 
 function updateLatLonFields(lat, lon) {
-    document.getElementById("latlon").innerHTML = lat + ', ' + lon;
-    document.getElementById("latlon02").innerHTML = lat + ', ' + lon;
-    document.getElementById("latlon03").innerHTML = lat + ', ' + lon;
-    document.getElementById("wkt").innerHTML = 'POINT('+lon+' '+lat +')';
+    $("#form_center").text(lat + ', ' + lon);
+    $("#lat").val(lat);
+    $("#long").val(lon);
+    //document.getElementById("wkt").innerHTML = 'POINT('+lon+' '+lat +')';
 }
 
 function showMap() {
@@ -43,18 +43,18 @@ function showMap() {
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.HYBRID
     };
-    window.gmap = new google.maps.Map(document.getElementById('gmap'), mapOptions);
+    gmap = new google.maps.Map(document.getElementById('gmap'), mapOptions);
     var timer = null;
     
-/*
-    google.maps.Event.addListener(gmap, "move", function() {
+    google.maps.event.addListener(gmap, "center_changed", function() {
         var center = gmap.getCenter();
         updateLatLonFields(center.lat(), center.lng());
     });
-    google.maps.Event.addListener(gmap, "zoomend", function(oldZoom, newZoom) {
-        document.getElementById("zoom").innerHTML = newZoom;
-        document.getElementById("zoom02").innerHTML = newZoom;
+    google.maps.event.addListener(gmap, "zoom_changed", function() {
+        var zoom = gmap.getZoom();
+        $("#form_zoom").text(zoom);
     });
+/*
     google.maps.Event.addDomListener(document.getElementById('crosshair'),
         'dblclick', function() {
             gmap.zoomIn();
@@ -64,7 +64,7 @@ function showMap() {
     
     // Set up Geocoder
     window.geocoder = new google.maps.Geocoder();
-    console.log(window.geocoder);
+    //console.log(window.geocoder);
     
     // If query string was provided, geocode it
     var bits = window.location.href.split('?');
@@ -176,6 +176,14 @@ div#crosshair {
     background-repeat: no-repeat;
 }
     </style>
+<p>
+    Note: You are setting map centerpoint and zoom level here. 
+    The centerpoint is the point you want people to guess.
+</p>
+<p>
+    Because many locations we're guessing are not a point, but an area, 
+    you will also need to provide the number of miles around the guess-point that will be considered a correct answer.
+</p>
 <h2>1. <a href="http://www.latlong.net/">Generate a lat and long here</a></h2>
 <h2>2. Take the values and paste them below:</h2>
 <form id="ageocodeForm" action="http://maps.google.com/maps"></form>
@@ -183,7 +191,6 @@ div#crosshair {
             <p>
                 <label for="geocodeInput">Place name: </label>
                 <input type="text" name="q" id="geocodeInput">
-                <!-- "Accessible" version of Google Maps: -->
 
                 <input type="hidden" name="output" value="html">
                 <input type="submit" value="Zoom to place">
@@ -197,7 +204,15 @@ div#crosshair {
     <input type="text" id="name" value="" maxlength="50" />
     <input type="text" id="lat" value="" maxlength="50" />
     <input type="text" id="long" value="" maxlength="50" />
+    <input type="text" id="zoom" value="" maxlength="2" />
 <h2>3. Copy the script below into a new article</h2>
+<style type="text/css">
+pre 
+{
+    text-align: left; 
+    margin: 0 10%;
+}
+</style>
 <pre>
 &lt;script>
 $(document).ready( function () { 
@@ -208,6 +223,7 @@ $(document).ready( function () {
         target_name: '<span id="form_name"></span>',
         target_type: 'latlng',
         unit: 'miles', // miles or km
+        zoom: <span id="form_zoom">5</span>,
         target: new google.maps.LatLng(<span id="form_target">27.175015 , 78.042155</span>),
         centerlatlng: new google.maps.LatLng(<span id="form_center">27.175015 , 78.042155</span>)
     };
