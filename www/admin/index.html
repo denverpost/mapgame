@@ -53,6 +53,7 @@ function showMap() {
     google.maps.event.addListener(gmap, "zoom_changed", function() {
         var zoom = gmap.getZoom();
         $("#form_zoom").text(zoom);
+        $("#zoom").val(zoom);
     });
 
     // This logic handles marker placement.
@@ -73,12 +74,16 @@ function showMap() {
 
                 // k is lat, D is long in Google maps.
                 $('#form_target').text(center.k + ', ' + center.D);
+                $("#target_lat").val(center.k);
+                $("#target_long").val(center.D);
                 window.marker = marker;
 
                 // When the marker position changes, update the form.
                 google.maps.event.addListener(window.marker, 'mouseup', function() 
                 {
                     $('#form_target').text(this.position.k + ', ' + this.position.D);
+                    $("#target_lat").val(this.position.k);
+                    $("#target_long").val(this.position.D);
                 });
             }
         }
@@ -141,15 +146,15 @@ function geocode(input) {
 </head>
 <body id="hd" onload="showMap();">
 <h1>Map Game Admin</h1>
-    <style>
-        html, body, #map-canvas 
-        {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        }
-        #map-canvas { width: 75%; margin: auto; }
+<style>
+html, body, #map-canvas 
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map-canvas { width: 75%; margin: auto; }
 body {
     margin: 0;
     margin-bottom: 3em;
@@ -206,9 +211,11 @@ div#crosshair {
     Because many locations we're guessing are not a point, but an area, 
     you will also need to provide the number of miles around the guess-point that will be considered a correct answer.
 </p>
-<h2>1. <a href="http://www.latlong.net/">Generate a lat and long here</a></h2>
-<h2>2. Take the values and paste them below:</h2>
+<h2>1. Move the map to where you want it to show.</h2>
+<p>The map's center and the map's zoom level is what readers will see. If you want some help finding something, type it in the "Place name" field below.</p>
 <form id="ageocodeForm" action="http://maps.google.com/maps"></form>
+<h2>2. Double-click the map when you're close to the location you want to create the target-marker.</h2>
+<p>Click and drag that marker to the place people are guessing.</p>
 <form id="geocodeForm" action="#">
             <p>
                 <label for="geocodeInput">Place name: </label>
@@ -222,11 +229,6 @@ div#crosshair {
         <div id="crosshair"></div>
     </div>
 </form>
-<form id="mapgame" action="./index.php" method="GET">
-    <input type="text" id="name" value="" maxlength="50" />
-    <input type="text" id="lat" value="" maxlength="50" />
-    <input type="text" id="long" value="" maxlength="50" />
-    <input type="text" id="zoom" value="" maxlength="2" />
 <h2>3. Copy the script below into a new article</h2>
 <style type="text/css">
 pre 
@@ -252,6 +254,16 @@ $(document).ready( function () {
 });
 &lt;/script>
 </pre>
+<h2>4. Give this game a name and specify the # of miles around the guess-target that is acceptable.</h2>
+<form id="mapgame" action="./index.php" method="GET" target="_blank">
+    <input type="text" id="name" name="name" value="" maxlength="50" placeholder="Name" />
+    <input type="text" id="radius" name="radius" value="" maxlength="50" placeholder="Guess Miles Radius" />
+    <input type="hidden" id="lat" name="lat" value="" maxlength="50" />
+    <input type="hidden" id="long" name="long" value="" maxlength="50" />
+    <input type="hidden" id="target_lat" name="target_lat" value="" maxlength="50" />
+    <input type="hidden" id="target_long" name="target_long" value="" maxlength="50" />
+    <input type="hidden" id="zoom" name="zoom" value="" maxlength="2" />
+    <input type="submit" value="Create the game" />
 </form>
 </body
 </html>
