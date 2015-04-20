@@ -135,7 +135,7 @@ body {
     margin: 0;
     margin-bottom: 3em;
     padding: 0;
-    font-family: "Gill sans", sans-serif;
+    font-family: Georgia, sans-serif;
     background-color: #fff;
     color: #000;
 }
@@ -221,8 +221,10 @@ $(document).ready( function () {
         log_guesses: 1,
         log_url: '',
         target_name: '<span id="form_name"></span>',
+        target_slug: '<span id="form_slug"></span>',
         target_type: 'latlng',
         unit: 'miles', // miles or km
+        radius: <span id="form_radius">0</span>,
         zoom: <span id="form_zoom">5</span>,
         target: new google.maps.LatLng(<span id="form_target"></span>),
         centerlatlng: new google.maps.LatLng(<span id="form_center">27.175015 , 78.042155</span>)
@@ -241,5 +243,29 @@ $(document).ready( function () {
     <input type="hidden" id="zoom" name="zoom" value="" maxlength="2" />
     <input type="submit" value="Create the game" />
 </form>
+<script>
+$('#radius').on('input', function() {
+    $('#form_radius').text(this.value);
+});
+$('#name').on('input', function() {
+    $('#form_name').text(this.value);
+    $('#form_slug').text(slugify(this.value));
+});
+function slugify(str)
+{
+    // Cribbed from https://github.com/andrefarzat/slugify/blob/master/slugify.js
+    var from = 'àáäãâèéëêìíïîòóöôõùúüûñç·/_,:;',
+    to = 'aaaaaeeeeiiiiooooouuuunc------';
+    var i = 0,
+        len = from.length;
+    str = str.toLowerCase();
+    for( ; i < len; i++ ){
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+    return str.replace(/^\s+|\s+$/g, '') //trim
+        .replace(/[^-a-zA-Z0-9\s]+/ig, '')
+        .replace(/\s/gi, "_");
+}
+</script>
 </body
 </html>
