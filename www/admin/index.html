@@ -63,12 +63,23 @@ function showMap() {
             // We only want to create one marker.
             if ( typeof window.marker == 'undefined' )
             {
+                var center = window.gmap.getCenter();
                 var marker = new google.maps.Marker({
-                    position: window.gmap.getCenter(),
+                    position: center,
                     map: window.gmap,
-                    title: 'Click to zoom'
+                    draggable: true,
+                    title: 'Target object'
                 });
+
+                // k is lat, D is long in Google maps.
+                $('#form_target').text(center.k + ', ' + center.D);
                 window.marker = marker;
+
+                // When the marker position changes, update the form.
+                google.maps.event.addListener(window.marker, 'mouseup', function() 
+                {
+                    $('#form_target').text(this.position.k + ', ' + this.position.D);
+                });
             }
         }
     );
@@ -188,8 +199,8 @@ div#crosshair {
 }
     </style>
 <p>
-    Note: You are setting map centerpoint and zoom level here. 
-    The centerpoint is the point you want people to guess.
+    Note: You are setting map centerpoint, guess-target and zoom level here. 
+    Double-click the map to add the guess-target, then click and drag it to where you want it.
 </p>
 <p>
     Because many locations we're guessing are not a point, but an area, 
@@ -235,7 +246,7 @@ $(document).ready( function () {
         target_type: 'latlng',
         unit: 'miles', // miles or km
         zoom: <span id="form_zoom">5</span>,
-        target: new google.maps.LatLng(<span id="form_target">27.175015 , 78.042155</span>),
+        target: new google.maps.LatLng(<span id="form_target"></span>),
         centerlatlng: new google.maps.LatLng(<span id="form_center">27.175015 , 78.042155</span>)
     };
 });
