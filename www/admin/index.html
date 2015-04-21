@@ -235,6 +235,7 @@ $(document).ready( function () {
 <h2>4. Give this game a name and specify the # of miles around the guess-target that is acceptable.</h2>
 <form id="mapgame" action="./admin.php" method="GET" target="_blank">
     <input type="text" id="name" name="name" value="" maxlength="50" placeholder="Name" />
+    <input type="hidden" id="slug" name="slug" value="" maxlength="50" />
     <input type="text" id="radius" name="radius" value="" maxlength="50" placeholder="Guess Miles Radius" />
     <input type="hidden" id="lat" name="lat" value="" maxlength="50" />
     <input type="hidden" id="long" name="long" value="" maxlength="50" />
@@ -250,6 +251,7 @@ $('#radius').on('input', function() {
 $('#name').on('input', function() {
     $('#form_name').text(this.value);
     $('#form_slug').text(slugify(this.value));
+    $('#slug').val(slugify(this.value));
 });
 function slugify(str)
 {
