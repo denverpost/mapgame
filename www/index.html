@@ -23,14 +23,17 @@
 <script>
 $(document).ready( function () { 
     mapg_config = 
-    { 
+    {  
         log_guesses: 1,
         log_url: '',
-        target_name: 'Test',
+        target_name: 'Denver',
+        target_slug: 'denver',
         target_type: 'latlng',
         unit: 'miles', // miles or km
-        target: new google.maps.LatLng(27.175015 , 78.042155),
-        centerlatlng: new google.maps.LatLng(27.175015 , 78.042155)
+        radius: 15,
+        zoom: 7,
+        target: new google.maps.LatLng(39.74068936038659, -104.98829126358032),
+        centerlatlng: new google.maps.LatLng(39.19032279415222, -105.03223657608032)
     };
 });
 </script>
