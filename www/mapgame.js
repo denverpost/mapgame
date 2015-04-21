@@ -38,24 +38,24 @@ var mapg = {
         draggable: false,
         scrollwheel: false,
         styles: [
-  {
-    "featureType": "road",
-    "stylers": [
-      { "visibility": "off" }
-    ]
-  },{
-    "featureType": "administrative.locality",
-    "stylers": [
-      { "visibility": "off" }
-    ]
-  },{
-    "featureType": "administrative.province",
-    "elementType": "labels",
-    "stylers": [
-      { "visibility": "off" }
-    ]
-  }
-]
+          {
+            "featureType": "road",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.locality",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.province",
+            "elementType": "labels",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          }
+        ]
     },
     slugify: function(str)
     {
@@ -82,12 +82,13 @@ var mapg = {
         return this.slugify(this.config.target_name) + '_' + this.config.unit;
     },
     slug: '',
-    log_answer: function (distance)
+    log_answer: function (distance, latlon)
     {
         // Send a request to a remote server to log how far the guess was from the mark
         if ( this.config.log_guesses !== 0 )
         {
-            var params = '?slug=' + this.slug + '&distance=' + distance + '&callback=';
+            var params = '?slug=' + this.slug + '&distance=' + distance + '&latlon=' lat + ',' + lon + '&callback=';
+console.log(this.config.log_url + params);
             var jqxhr = $.getJSON( this.config.log_url + params, function(data) 
             {
                 // Success
@@ -159,7 +160,7 @@ console.log('4', data);
                 var distance_rounded = Math.round(distance);
                 $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target');
                 console.log(distance, ' miles');
-                parent.mapg.log_answer(distance_rounded);
+                parent.mapg.log_answer(distance_rounded, this.position.k, this.position.D);
             }
         });
         //var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
