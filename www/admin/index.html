@@ -205,7 +205,7 @@ div#crosshair {
         <div id="crosshair"></div>
     </div>
 </form>
-<h2>3. Copy the script below into a new article</h2>
+<h2>3. Copy the markup below into a new article</h2>
 <style type="text/css">
 pre 
 {
@@ -231,6 +231,18 @@ $(document).ready( function () {
     };
 });
 &lt;/script>
+    &lt;script src='https://maps.googleapis.com/maps/api/js?v=3.exp">&lt;/script>
+    &lt;script src='http://extras.denverpost.com/app/mapgame/mapgame.js">&lt;/script>
+    &lt;h2>Where is LOCATIONNAME on the map?&lt;/h2>
+    &lt;p>
+        Click and drag the marker to where you think LOCATIONNAME is on this map of LOCATIONAREA. 
+        When you drop it, the answer will appear, and you'll see how your guess compares with everyone else who has played.
+    &lt;/p>
+    &lt;h3 id="result">&lt;/h3>
+    &lt;div id="map-canvas">&lt;/div>
+    &lt;style type="text/csss">
+        #map-canvas { width: 100%; height: 400px; margin: auto; }
+    &lt;/style>
 </pre>
 <h2>4. Give this game a name and specify the # of miles around the guess-target that is acceptable.</h2>
 <form id="mapgame" action="./admin.php" method="GET" target="_blank">

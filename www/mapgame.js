@@ -97,8 +97,16 @@ var mapg = {
                 // Display how the reader has done compared to everyone else.
                 // **TODO provide a link so they can see everyone else's guesses.
                 // data will look something like { "guesses": "1", "average": "8" }
-                $('#result').append(' Of ' + data.guesses + ' other guesses, people\'s guesses landed ' + data.average + ' miles away on average.');
-                //$('#result').append(data.correct + ' people guessed correctly.');
+                var average = Math.round(data.average);
+                $('#result').append(' Of ' + data.guesses + ' other guesses, people\'s guesses landed ' + average + ' miles away on average.');
+                if  ( typeof data.correct !== 'undefined' )
+                {
+                    $('#result').append(' ' + data.correct + ' people guessed correctly.');
+                    if ( distance == 0 && data.correct == 1 )
+                    {
+                        $('#result').append(' <span style="color:red; clear: both;">You\'re the first to get this right! Congrats!</span>');
+                    }
+                }
             })
                 .done(function() {
                     // Second success
