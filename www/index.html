@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <title>Denver Map Game - The Denver Post</title>
@@ -13,9 +14,6 @@
     <meta name="title" content="Denver Map Game" />
     <meta name="language" content="en, sv" />
     <meta name="Copyright" content="Copyright &copy; The Denver Post." />
-<!--
-    <link rel="author" href="humans.txt" />
--->
 
     <meta name="description" content="Given a map of Colorado, how close can you guess Denver's location?">
     <meta name="news_keywords" content="Colorado, Denver, Cartography, Game">
@@ -27,7 +25,7 @@
     <meta name="twitter:image" value="http://extras.denverpost.com/app/mapgame/promo.png" />
     <meta name="twitter:site" value="@denverpost" />
     <meta name="twitter:domain" value="denverpost.com" />
-    <meta name="twitter:creator" content="@joemurph">
+    <meta name="twitter:creator" value="@joemurph">
     <meta name="twitter:app:name:iphone" value="Denver Post">
     <meta name="twitter:app:name:ipad" value="Denver Post">
     <meta name="twitter:app:name:googleplay" value="The Denver Post">
@@ -51,11 +49,6 @@
     <link href="http://extras.denverpost.com/app/mapgame/style.css" type="text/css" rel="stylesheet">
     <style type="text/css">
         body { margin:2%; }
-h1
-{
-    text-indent: -10000px;
-    background: url('http://local.denverpost.com/assets/logo-large.png') no-repeat top center;
-}
         @media only screen and (max-width:650px) {
         }
     </style>
@@ -77,15 +70,16 @@ h1
         <script type="text/javascript">
             s.trackExternalLinks = false
             s.pageName = document.title
+            s.server="EXTRAS"
             s.channel = "MAPGAME"
-            s.prop1 = "D=g"
-            s.prop2 = "MAPGAME/?"
+            s.prop1 = "D=g" // Root Section
+            s.prop2 = "MAPGAME/?" // Sub section 1
             s.prop3 = "MAPGAME/?/?"
             s.prop4 = "MAPGAME/?/?/?"
             s.prop5 = "MAPGAME/?/?/?/" + document.title
             var s_code=s.t();if(s_code)document.write(s_code)
         </script>
-        <noscript><img src="http://denverpost.112.2O7.net/b/ss/denverpost/1/H.17--NS/0" height="1" width="1" border="0" alt="" /></noscript>
+        <noscript><img src="http://denverpost.112.2O7.net/b/ss/denverpost/1/H.17--NS/0" height="1" width="1" alt="" /></noscript>
     </div>
     <h1>Map Game</h1>
 
@@ -117,7 +111,7 @@ $(document).ready( function () {
     </p>
     <h3 id="result"></h3>
     <div id="map-canvas"></div>
-    <style>
+    <style type="text/css">
         #map-canvas { width: 100%; height: 500px; margin: auto; }
     </style>
 
