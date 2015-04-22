@@ -164,8 +164,18 @@ console.log('4', data);
                 // k is lat, D is long in Google maps.
                 var distance = parent.mapg.great_circle(parent.mapg.config.target.k, parent.mapg.config.target.D, this.position.k, this.position.D);
                 var distance_rounded = Math.round(distance);
+
+                // Show where the target was.
+                var target_marker = new google.maps.Marker(
+                {
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                    position: parent.mapg.config.target,
+                    map: map,
+                    draggable: false,
+                    title: parent.mapg.config.target_name
+                });
+                
                 $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target');
-                console.log(distance, ' miles');
                 parent.mapg.log_answer(distance_rounded, this.position.k, this.position.D);
             }
         });
