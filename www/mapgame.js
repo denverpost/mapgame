@@ -6,9 +6,11 @@ var mapg = {
         log_guesses: 0,
         log_url: '',
         target_name: '',
+        target_slug: '',
         target_type: 'latlng',
         unit: 'miles', // miles or km
         zoom: 6,
+        radius: 0,
         target: new google.maps.LatLng(27.175015 , 78.042155),
         centerlatlng: new google.maps.LatLng(0, 0)
     },
@@ -79,20 +81,24 @@ var mapg = {
     build_slug: function ()
     {
         // Put together the slug of a map -- a name we can refer to.
-        return this.slugify(this.config.target_name) + '_' + this.config.unit;
+        //return this.slugify(this.config.target_name) + '_' + this.config.unit;
+        return this.slugify(this.config.target_name);
     },
     slug: '',
-    log_answer: function (distance, latlon)
+    log_answer: function (distance, lat, lon)
     {
         // Send a request to a remote server to log how far the guess was from the mark
         if ( this.config.log_guesses !== 0 )
         {
-            var params = '?slug=' + this.slug + '&distance=' + distance + '&latlon=' lat + ',' + lon + '&callback=';
-console.log(this.config.log_url + params);
+            var params = '?slug=' + this.slug + '&distance=' + distance + '&lat=' + lat + '&lon=' + lon + '&callback=';
             var jqxhr = $.getJSON( this.config.log_url + params, function(data) 
             {
                 // Success
-console.log('1', data);
+                // Display how the reader has done compared to everyone else.
+                // **TODO provide a link so they can see everyone else's guesses.
+                // data will look something like { "guesses": "1", "average": "8" }
+                $('#result').append('. Of ' + data.guesses + ' other guesses, people\'s guesses landed ' + data.average + ' miles away on average.');
+                //$('#result').append(data.correct + ' people guessed correctly.');
             })
                 .done(function() {
                     // Second success
