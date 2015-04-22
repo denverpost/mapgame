@@ -97,7 +97,7 @@ var mapg = {
                 // Display how the reader has done compared to everyone else.
                 // **TODO provide a link so they can see everyone else's guesses.
                 // data will look something like { "guesses": "1", "average": "8" }
-                $('#result').append('. Of ' + data.guesses + ' other guesses, people\'s guesses landed ' + data.average + ' miles away on average.');
+                $('#result').append(' Of ' + data.guesses + ' other guesses, people\'s guesses landed ' + data.average + ' miles away on average.');
                 //$('#result').append(data.correct + ' people guessed correctly.');
             })
                 .done(function() {
@@ -165,6 +165,22 @@ console.log('4', data);
                 var distance = parent.mapg.great_circle(parent.mapg.config.target.k, parent.mapg.config.target.D, this.position.k, this.position.D);
                 var distance_rounded = Math.round(distance);
 
+                // If we have a value for mapg.config.radius, we subtract that from the distance.
+                if ( parent.mapg.radius > 0 )
+                {
+                    distance_rounded = distance_rounded - parent.mapg.radius;
+                    if ( distance_rounded < 0 ) distance_rounded = 0;
+                }
+
+                if ( distance_rounded == 0 )
+                {
+                    $('#result').text('You guessed it right! Congratulations!');
+                }
+                else
+                {
+                    $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target.');
+                }
+
                 // Show where the target was.
                 var target_marker = new google.maps.Marker(
                 {
@@ -175,7 +191,6 @@ console.log('4', data);
                     title: parent.mapg.config.target_name
                 });
                 
-                $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target');
                 parent.mapg.log_answer(distance_rounded, this.position.k, this.position.D);
             }
         });
