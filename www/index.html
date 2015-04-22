@@ -9,11 +9,11 @@
     <link rel="shortcut icon" href="http://extras.mnginteractive.com/live/media/favIcon/dpo/favicon.ico" type="image/x-icon" />
 
     <meta name="distribution" content="global" />
-    <meta name="robots" content="index, nofollow" />
+    <meta name="robots" content="index" />
     <meta name="title" content="Denver Map Game" />
     <meta name="language" content="en, sv" />
     <meta name="Copyright" content="Copyright &copy; The Denver Post." />
-<!00
+<!--
     <link rel="author" href="humans.txt" />
 -->
 
@@ -21,9 +21,9 @@
     <meta name="news_keywords" content="Colorado, Denver, Cartography, Game">
 
     <meta name="twitter:card" value="summary" />
-    <meta name="twitter:url" value="http://www.denverpost.com/app/mapgame/games/denver/" />
+    <meta name="twitter:url" value="http://www.denverpost.com/app/mapgame/games/denver.html" />
     <meta name="twitter:title" value="Denver Map Game" />
-    <meta name="twitter:description" value="{{description}}" />
+    <meta name="twitter:description" value="Given a map of Colorado, how close can you guess Denver's location?" />
     <meta name="twitter:image" value="http://extras.denverpost.com/app/mapgame/promo.png" />
     <meta name="twitter:site" value="@denverpost" />
     <meta name="twitter:domain" value="denverpost.com" />
@@ -38,7 +38,7 @@
     <meta property="fb:app_id" content="105517551922"/>
     <meta property="og:title" content="Denver Map Game" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="http://extras.denverpost.com/app/mapgame/games/denver/" />
+    <meta property="og:url" content="http://extras.denverpost.com/app/mapgame/games/denver.html" />
     <meta property="og:image" content="http://extras.denverpost.com/app/mapgame/promo.png" />
     <meta property="og:site_name" content="The Denver Post" />
     <meta property="og:description" content="Given a map of Colorado, how close can you guess Denver's location?" />
@@ -46,8 +46,11 @@
 
     <meta name="google-site-verification" content="2bKNvyyGh6DUlOvH1PYsmKN4KRlb-0ZI7TvFtuKLeAc" />
 
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <link href="http://extras.denverpost.com/app/mapgame/normalize.css" type="text/css" rel="stylesheet">
+    <link href="http://extras.denverpost.com/app/mapgame/style.css" type="text/css" rel="stylesheet">
     <style type="text/css">
-        body { margin:0; }
+        body { margin:2%; }
         @media only screen and (max-width:650px) {
         }
     </style>
@@ -69,12 +72,12 @@
         <script type="text/javascript">
             s.trackExternalLinks = false
             s.pageName = document.title
-            s.channel = "Mental Illness"
+            s.channel = "MAPGAME"
             s.prop1 = "D=g"
-            s.prop2 = "Mental Illness/?"
-            s.prop3 = "Mental Illness/?/?"
-            s.prop4 = "Mental Illness/?/?/?"
-            s.prop5 = "Mental Illness/?/?/?/" + document.title
+            s.prop2 = "MAPGAME/?"
+            s.prop3 = "MAPGAME/?/?"
+            s.prop4 = "MAPGAME/?/?/?"
+            s.prop5 = "MAPGAME/?/?/?/" + document.title
             var s_code=s.t();if(s_code)document.write(s_code)
         </script>
         <noscript><img src="http://denverpost.112.2O7.net/b/ss/denverpost/1/H.17--NS/0" height="1" width="1" border="0" alt="" /></noscript>
@@ -110,15 +113,31 @@ $(document).ready( function () {
     <h3 id="result"></h3>
     <div id="map-canvas"></div>
     <style>
-        html, body, #map-canvas 
-        {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        }
-        #map-canvas { width: 670px; height: 600px; margin: auto; }
+        #map-canvas { width: 100%; height: 500px; margin: auto; }
     </style>
+
+    <!-- END #MAPGAME# -->
+
+    <!-- Begin DFP Premium ad uniqueId: dfp-20 -->
+    <div id='dfp-20' style="margin-bottom:10px;">
+        <script type='text/javascript'>
+            googletag.defineSlot('/8013/denverpost.com/News',[[300,250],[300,600],[160,600],[300,1050]], 'dfp-20').addService(googletag.pubads()).setTargeting('pos',['Cube1_RRail_ATF']).setTargeting('kv','movies');                                          
+            googletag.pubads().enableSyncRendering();
+            googletag.enableServices();                                         
+            googletag.display('dfp-20');
+        </script>
+    </div>
+    <!-- End DFP Premium ad uniqueId: dfp-20 -->
+    <!-- Begin DFP Premium ad uniqueId: dfp-21 -->
+    <div id='dfp-21' style="margin-bottom:10px;">
+        <script type='text/javascript'>
+            googletag.defineSlot('/8013/denverpost.com/News',[[300,250]], 'dfp-21').addService(googletag.pubads()).setTargeting('pos',['Cube2_RRail_mid']).setTargeting('kv','movies');
+            googletag.pubads().enableSyncRendering();
+            googletag.enableServices();                                         
+            googletag.display('dfp-21');
+        </script>
+    </div>
+    <!-- End DFP Premium ad uniqueId: dfp-21 -->
     <script type="text/javascript">
         //Chartbeat stuff
         _sf_async_config.uid = 2671;
