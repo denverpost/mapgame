@@ -98,10 +98,12 @@ var mapg = {
                 // **TODO provide a link so they can see everyone else's guesses.
                 // data will look something like { "guesses": "1", "average": "8" }
                 var average = Math.round(data.average);
-                $('#result').append(' Of ' + data.guesses + ' other guesses, people\'s guesses landed ' + average + ' miles away on average.');
+                $('#result').append(' ' + data.guesses + ' other people have guessed. An average guess landed ' + average + ' miles away.');
                 if  ( typeof data.correct !== 'undefined' )
                 {
-                    $('#result').append(' ' + data.correct + ' people guessed correctly.');
+                    var people = "people";
+                    if ( data.correct == 1 ) people = "person";
+                    $('#result').append(' ' + data.correct + ' ' + people + ' guessed correctly.');
                     if ( distance == 0 && data.correct == 1 )
                     {
                         $('#result').append(' <span style="color:red; clear: both;">You\'re the first to get this right! Congrats!</span>');
