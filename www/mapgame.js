@@ -110,15 +110,12 @@ var mapg = {
             })
                 .done(function() {
                     // Second success
-console.log('2', data);
                 })
                 .fail(function() {
                     // Error
-console.log('3', data);
                 })
                 .always(function() {
                     // Complete
-console.log('4', data);
                 });
         }
     },
@@ -147,7 +144,7 @@ console.log('4', data);
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
 
-        var marker = new google.maps.Marker(
+        answer_marker = new google.maps.Marker(
         {
             position: parent.mapg.config.centerlatlng,
             map: map,
@@ -155,8 +152,12 @@ console.log('4', data);
             title: 'Your Guess'
         });
 
-        google.maps.event.addListener(marker, 'mouseup', function() 
+        google.maps.event.addListener(window.answer_marker, 'mouseup', function() 
         {
+            // Keep people from guessing again.
+            window.answer_marker.draggable = false;
+            google.maps.event.clearListeners(window.answer_marker, 'mouseup');
+
             // If the marker hasn't been moved we don't want to do anything:
             if ( parent.mapg.config.centerlatlng.D == this.position.D && this.config.centerlatlng.k == this.position.k )
             {
