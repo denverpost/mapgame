@@ -204,6 +204,10 @@ var mapg = {
                 
                 parent.mapg.log_answer(distance_rounded, this.position.k, this.position.D);
             }
+            else if ( parent.mapg.config.target_type == 'boundary' )
+            {
+                // Start on the boundary work.
+            }
         });
         //var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
         //boundary.setMap(map);
