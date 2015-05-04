@@ -8,6 +8,7 @@ var mapg = {
         target_name: '',
         target_slug: '',
         target_type: 'latlng',
+        boundary_file: '',
         unit: 'miles', // miles or km
         zoom: 6,
         radius: 0,
@@ -144,27 +145,27 @@ var mapg = {
         }
         this.slug = this.build_slug();
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
+        this.map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
 
         answer_marker = new google.maps.Marker(
         {
             position: parent.mapg.config.centerlatlng,
-            map: map,
+            map: this.map,
             draggable: true,
             title: 'Your Guess'
         });
 
         google.maps.event.addListener(window.answer_marker, 'mouseup', function() 
         {
+            // If the marker hasn't been moved we don't want to do anything:
+            if ( parent.mapg.config.centerlatlng.D == this.position.D && parent.mapg.config.centerlatlng.k == this.position.k )
+            {
+                //return false;
+            }
+
             // Keep people from guessing again.
             window.answer_marker.draggable = false;
             google.maps.event.clearListeners(window.answer_marker, 'mouseup');
-
-            // If the marker hasn't been moved we don't want to do anything:
-            if ( parent.mapg.config.centerlatlng.D == this.position.D && this.config.centerlatlng.k == this.position.k )
-            {
-                return false;
-            }
         
             // Check how far the click was from the target.
             // There are two types of target checks: Lat-Long, used for small cities or foreign cities
@@ -197,7 +198,7 @@ var mapg = {
                 {
                     icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                     position: parent.mapg.config.target,
-                    map: map,
+                    map: this.map,
                     draggable: false,
                     title: parent.mapg.config.target_name
                 });
@@ -207,11 +208,18 @@ var mapg = {
             else if ( parent.mapg.config.target_type == 'boundary' )
             {
                 // Start on the boundary work.
+                var guess = { lat: this.position.k, lon: this.position.D }
+                var boundary = new google.maps.KmlLayer({
+                    url: window.mapg.config.boundary_file,
+                    map: this.map
+                });
+                console.log(boundary);
+                google.maps.event.addListener(boundary, 'click', function(kmlEvent) {
+                console.log("This is the kmlEvent:", kmlEvent);
+                  });
+
             }
         });
-        //var boundary = new google.maps.KmlLayer('http://extras.denverpost.com/media/kml/state/montana.kml');
-        //boundary.setMap(map);
-        //console.log(boundary);
     }
 };
 
