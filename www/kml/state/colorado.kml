@@ -2,7 +2,6 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
 <Placemark id="state-colorado">
 <name>Colorado</name>
-<id>US-STATE-COLORADO</id>
   <Style>
     <LineStyle>
       <width>1</width> 
