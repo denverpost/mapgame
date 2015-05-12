@@ -38,12 +38,12 @@ var mapg = {
     {
         zoom: 8,
         center: new google.maps.LatLng(0, 0),
-        //disableDefaultUI: true,
+        disableDefaultUI: true,
         //mapTypeId: google.maps.MapTypeId.SATELLITE,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         disableDoubleClickZoom: true,
-        //draggable: false,
-        //scrollwheel: false,
+        draggable: false,
+        scrollwheel: false,
         styles: [
           {
             "featureType": "road",
