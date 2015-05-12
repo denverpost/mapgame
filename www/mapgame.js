@@ -267,17 +267,3 @@ Math.radians = function (degrees)
 
 
 $(document).ready( function () { mapg.init(); });
-function find_distance(boundary)
-{
-console.log('boun', boundary);
-}
-function create_overlay(overlay)
-{
-console.log('over', overlay);
-kml_parser.createOverlay(overlay);
-}
-function create_marker(obj)
-{
-console.log('marker', obj);
-//kml_parser.createOverlay(overlay);
-}
