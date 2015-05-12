@@ -203,11 +203,6 @@ var mapg = {
             var kml_parser = new geoXML3.parser(geoxml_config);
             kml_parser.parse(this.config.boundary_file);
             console.log(kml_parser);
-
-            //google.maps.event.addListener(boundary, 'click', function(kmlEvent) {
-            //console.log("This is the kmlEvent:", kmlEvent);
-            //  });
-
         }
     },
     find_distance: function find_distance(obj)
