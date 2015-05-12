@@ -157,10 +157,10 @@ var mapg = {
     make_guess: function (guess)
     {
         // If the marker hasn't been moved we don't want to do anything:
-        //if ( this.config.centerlatlng.A == guess.latLng.A && this.config.centerlatlng.F == guess.latLng.F )
-        //{
-            //return false;
-        //}
+        if ( this.config.centerlatlng.A == guess.latLng.A && this.config.centerlatlng.F == guess.latLng.F )
+        {
+            return false;
+        }
 
         // Keep people from guessing again.
         this.guess = guess;
