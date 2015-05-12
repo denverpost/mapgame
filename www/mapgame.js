@@ -29,6 +29,10 @@ var mapg = {
         // so we update that separately.
         this.mapOptions.zoom = this.config.zoom;
         this.mapOptions.center = this.config.centerlatlng;
+        if ( typeof this.config.styles !== 'undefined' )
+        {
+            this.mapOptions.styles = this.config.styles;
+        }
     },
     mapOptions: 
     {

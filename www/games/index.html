@@ -15,14 +15,14 @@
     <meta name="language" content="en, sv" />
     <meta name="Copyright" content="Copyright &copy; The Denver Post." />
 
-    <meta name="description" content="Given a map of Colorado, how close can you guess Denver's location?">
+    <meta name="description" content="Given a map of North America, how closely can you guess Colorado's location?">
     <meta name="news_keywords" content="Colorado, Denver, Cartography, Game">
 
     <meta name="twitter:card" value="summary" />
-    <meta name="twitter:url" value="http://www.denverpost.com/app/mapgame/games/denver.html" />
+    <meta name="twitter:url" value="http://www.denverpost.com/app/mapgame/games/colorado.html" />
     <meta name="twitter:title" value="Denver Map Game" />
-    <meta name="twitter:description" value="Given a map of Colorado, how close can you guess Denver's location?" />
-    <meta name="twitter:image" value="http://extras.denverpost.com/app/mapgame/promo.png" />
+    <meta name="twitter:description" value="Given a map of North America, how closely can you guess Colorado's location?" />
+    <meta name="twitter:image" value="http://extras.denverpost.com/app/mapgame/promo-map-north_america.png" />
     <meta name="twitter:site" value="@denverpost" />
     <meta name="twitter:domain" value="denverpost.com" />
     <meta name="twitter:creator" value="@joemurph">
@@ -34,12 +34,12 @@
     <meta name="twitter:app:id:googleplay" value="com.ap.denverpost" />
 
     <meta property="fb:app_id" content="105517551922"/>
-    <meta property="og:title" content="Denver Map Game" />
+    <meta property="og:title" content="Colorado Map Game" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="http://extras.denverpost.com/app/mapgame/games/denver.html" />
-    <meta property="og:image" content="http://extras.denverpost.com/app/mapgame/promo.png" />
+    <meta property="og:url" content="http://extras.denverpost.com/app/mapgame/games/colorado.html" />
+    <meta property="og:image" content="http://extras.denverpost.com/app/mapgame/promo-map-north_america.png" />
     <meta property="og:site_name" content="The Denver Post" />
-    <meta property="og:description" content="Given a map of Colorado, how close can you guess Denver's location?" />
+    <meta property="og:description" content="Given a map of North America, how closely can you guess Colorado's location?" />
     <meta property="article:publisher" content="https://www.facebook.com/denverpost" />
 
     <meta name="google-site-verification" content="2bKNvyyGh6DUlOvH1PYsmKN4KRlb-0ZI7TvFtuKLeAc" />
@@ -99,10 +99,8 @@ $(document).ready( function () {
         //boundary_file: '/mapgame/www/kml/state/montana.kml',
         boundary_file: '/mapgame/www/kml/state/colorado.kml',
         unit: 'miles', // miles or km
-        radius: 8,
         zoom: 4,
-        target: new google.maps.LatLng(39.74068936038659, -104.98829126358032),
-        centerlatlng: new google.maps.LatLng(39,-105.32),
+        centerlatlng: new google.maps.LatLng(48,-103),
         styles: [
           {
             "featureType": "road",
@@ -148,7 +146,6 @@ $(document).ready( function () {
     <!-- END #MAPGAME# -->
 
     <footer>
-<!--
     <div id='dfp-20' style="margin-bottom:10px;">
         <script type='text/javascript'>
             googletag.defineSlot('/8013/denverpost.com/News',[[300,250],[300,600],[160,600],[300,1050]], 'dfp-20').addService(googletag.pubads()).setTargeting('pos',['Cube1_RRail_ATF']).setTargeting('kv','movies');                                          
@@ -184,7 +181,6 @@ $(document).ready( function () {
             window.onload = (typeof window.onload != 'function') ? loadChartbeat : function() { oldonload(); loadChartbeat(); };
         })();
     </script>
--->
     <p>Copyright &copy; 2015 <a href="http://www.denverpost.com/">The Denver Post</a></p>
     <p>
         <a href="http://www.denverpost.com/weather#denver">Denver Weather</a> 
