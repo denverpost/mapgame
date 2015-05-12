@@ -136,6 +136,7 @@ var mapg = {
         var d = R * c;
         return d;
     },
+    guess: {},
     make_guess: function (guess)
     {
         // If the marker hasn't been moved we don't want to do anything:
@@ -190,6 +191,7 @@ var mapg = {
         else if ( this.config.target_type == 'boundary' )
         {
             // Start on the boundary work.
+            // this.find_distance handles the guess calculations.
             var guess = { lat: guess.latLng.A, lon: guess.latLng.F }
             var geoxml_config = {
                 map: this.map,
@@ -202,34 +204,30 @@ var mapg = {
             };
             var kml_parser = new geoXML3.parser(geoxml_config);
             kml_parser.parse(this.config.boundary_file);
-            console.log(kml_parser);
         }
     },
     find_distance: function find_distance(obj)
     {
-        console.log('boun', obj, this);
         coords = obj[0].placemarks[0].Polygon[0].outerBoundaryIs[0].coordinates;
         var len = coords.length;
         var best_guess = 0.0;
         for ( i = 0; i <= len; i++ )
         {
-            console.log(coords[i])
             var distance = parent.mapg.great_circle(coords.lat, coords.lng, parent.mapg.guess.latLng.A, parent.mapg.guess.latLng.F);
+            console.log(parent.mapg.guess, distance);
             
         }
     },
     failed_parse: function failed_parse(obj)
     {
-        console.log('Fail: ', obj);
+        //console.log('Fail: ', obj);
     },
-    create_overlay: function create_overlay(overlay)
+    create_overlay: function create_overlay(obj)
     {
-        console.log('over', overlay);
-        kml_parser.createOverlay(overlay);
+        kml_parser.createOverlay(obj);
     },
     create_marker: function create_marker(obj)
     {
-        console.log('marker', obj);
         kml_parser.createMarker(obj);
     },
     init: function ()
@@ -251,7 +249,7 @@ var mapg = {
             title: 'Your Guess'
         });
 
-        google.maps.event.addListener(window.answer_marker, 'mouseup', function (e) { parent.mapg.make_guess(e); });
+        google.maps.event.addListener(window.answer_marker, 'mouseup', function (guess) { parent.mapg.make_guess(guess); });
     }
 };
 
