@@ -137,6 +137,19 @@ var mapg = {
         return d;
     },
     guess: {},
+    show_answer: function (distance)
+    {
+        // Show the answer.
+        if ( distance == 0 )
+        {
+            $('#result').text('You guessed it right! Congratulations!');
+        }
+        else
+        {
+            $('#result').text('Your guess landed ' + distance + ' miles from the target.');
+        }
+        this.log_answer(distance, this.guess.latLng.A, this.guess.latLng.F);
+    },
     make_guess: function (guess)
     {
         // If the marker hasn't been moved we don't want to do anything:
@@ -167,15 +180,6 @@ var mapg = {
                 if ( distance_rounded < 0 ) distance_rounded = 0;
             }
 
-            if ( distance_rounded == 0 )
-            {
-                $('#result').text('You guessed it right! Congratulations!');
-            }
-            else
-            {
-                $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target.');
-            }
-
             // Show where the target was.
             var target_marker = new google.maps.Marker(
             {
@@ -185,8 +189,8 @@ var mapg = {
                 draggable: false,
                 title: this.config.target_name
             });
-            
-            this.log_answer(distance_rounded, guess.latLng.A, guess.latLng.F);
+
+            this.show_answer(distance_rounded);
         }
         else if ( this.config.target_type == 'boundary' )
         {
@@ -208,15 +212,26 @@ var mapg = {
     },
     find_distance: function find_distance(obj)
     {
+        // See how close the guess was to the nearest point, in case the guess was outside the boundary.
         coords = obj[0].placemarks[0].Polygon[0].outerBoundaryIs[0].coordinates;
         var len = coords.length;
         var best_guess = 0.0;
-        for ( i = 0; i <= len; i++ )
+        var in_bounds = google.maps.geometry.poly.containsLocation(parent.mapg.guess.latLng, obj[0].gpolygons[0]);
+        if ( in_bounds === false )
         {
-            var distance = parent.mapg.great_circle(coords.lat, coords.lng, parent.mapg.guess.latLng.A, parent.mapg.guess.latLng.F);
-            console.log(parent.mapg.guess, distance);
-            
+            for ( i = 0; i < len; i++ )
+            {
+                var distance = parent.mapg.great_circle(coords[i].lat, coords[i].lng, parent.mapg.guess.latLng.A, parent.mapg.guess.latLng.F);
+                if ( best_guess === 0.0 ) best_guess = distance;
+                else if ( distance < best_guess ) best_guess = distance;
+            }
+            var guess_rounded = Math.round(best_guess);
         }
+        else
+        {
+            var guess_rounded = 0;
+        }
+        parent.mapg.show_answer(guess_rounded);
     },
     failed_parse: function failed_parse(obj)
     {
