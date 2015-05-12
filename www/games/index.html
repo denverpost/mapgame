@@ -96,7 +96,8 @@ $(document).ready( function () {
         target_slug: 'denver',
         target_type: 'latlng',
         target_type: 'boundary',
-        boundary_file: '/mapgame/www/kml/state/montana.kml',
+        //boundary_file: '/mapgame/www/kml/state/montana.kml',
+        boundary_file: '/mapgame/www/kml/state/colorado.kml',
         unit: 'miles', // miles or km
         radius: 8,
         zoom: 4,
@@ -107,6 +108,8 @@ $(document).ready( function () {
 </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="../js/geoxml3.js"></script>
+    <script src="../js/ProjectedOverlay.js"></script>
     <script src="../mapgame.js"></script>
     <h2>Where is Denver on the map?</h2>
     <p>

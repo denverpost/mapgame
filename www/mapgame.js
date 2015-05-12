@@ -34,12 +34,12 @@ var mapg = {
     {
         zoom: 8,
         center: new google.maps.LatLng(0, 0),
-        disableDefaultUI: true,
+        //disableDefaultUI: true,
         //mapTypeId: google.maps.MapTypeId.SATELLITE,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         disableDoubleClickZoom: true,
-        draggable: false,
-        scrollwheel: false,
+        //draggable: false,
+        //scrollwheel: false,
         styles: [
           {
             "featureType": "road",
@@ -136,6 +136,107 @@ var mapg = {
         var d = R * c;
         return d;
     },
+    make_guess: function (guess)
+    {
+        // If the marker hasn't been moved we don't want to do anything:
+        //if ( this.config.centerlatlng.A == guess.latLng.A && this.config.centerlatlng.F == guess.latLng.F )
+        //{
+            //return false;
+        //}
+
+        // Keep people from guessing again.
+        this.guess = guess;
+        window.answer_marker.draggable = false;
+        google.maps.event.clearListeners(window.answer_marker, 'mouseup');
+    
+        // Check how far the click was from the target.
+        // There are two types of target checks: Lat-Long, used for small cities or foreign cities
+        // (cities smaller than five miles wide, or cities we don't have boundary data for), and
+        // boundary target checks. For boundary checks we need the KML string for the boundary.
+        if ( this.config.target_type == 'latlng' )
+        {
+            // A is lat, F is long in Google maps.
+            var distance = this.great_circle(this.config.target.A, this.config.target.F, guess.latLng.A, guess.latLng.F)
+            var distance_rounded = Math.round(distance);
+
+            // If we have a value for mapg.config.radius, we subtract that from the distance.
+            if ( this.radius > 0 )
+            {
+                distance_rounded = distance_rounded - this.radius;
+                if ( distance_rounded < 0 ) distance_rounded = 0;
+            }
+
+            if ( distance_rounded == 0 )
+            {
+                $('#result').text('You guessed it right! Congratulations!');
+            }
+            else
+            {
+                $('#result').text('Your guess landed ' + distance_rounded + ' miles from the target.');
+            }
+
+            // Show where the target was.
+            var target_marker = new google.maps.Marker(
+            {
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                position: this.config.target,
+                map: this.map,
+                draggable: false,
+                title: this.config.target_name
+            });
+            
+            this.log_answer(distance_rounded, guess.latLng.A, guess.latLng.F);
+        }
+        else if ( this.config.target_type == 'boundary' )
+        {
+            // Start on the boundary work.
+            var guess = { lat: guess.latLng.A, lon: guess.latLng.F }
+            var geoxml_config = {
+                map: this.map,
+                processStyles: true,
+                zoom: false,
+                afterParse: this.find_distance,
+                failedParse: this.failed_parse,
+                createOverlay: this.create_overlay,
+                createMarker: this.create_marker
+            };
+            var kml_parser = new geoXML3.parser(geoxml_config);
+            kml_parser.parse(this.config.boundary_file);
+            console.log(kml_parser);
+
+            //google.maps.event.addListener(boundary, 'click', function(kmlEvent) {
+            //console.log("This is the kmlEvent:", kmlEvent);
+            //  });
+
+        }
+    },
+    find_distance: function find_distance(obj)
+    {
+        console.log('boun', obj, this);
+        coords = obj[0].placemarks[0].Polygon[0].outerBoundaryIs[0].coordinates;
+        var len = coords.length;
+        var best_guess = 0.0;
+        for ( i = 0; i <= len; i++ )
+        {
+            console.log(coords[i])
+            var distance = parent.mapg.great_circle(coords.lat, coords.lng, parent.mapg.guess.latLng.A, parent.mapg.guess.latLng.F);
+            
+        }
+    },
+    failed_parse: function failed_parse(obj)
+    {
+        console.log('Fail: ', obj);
+    },
+    create_overlay: function create_overlay(overlay)
+    {
+        console.log('over', overlay);
+        kml_parser.createOverlay(overlay);
+    },
+    create_marker: function create_marker(obj)
+    {
+        console.log('marker', obj);
+        kml_parser.createMarker(obj);
+    },
     init: function ()
     {
         // Config handling. External config objects must be named mapg_config
@@ -155,13 +256,16 @@ var mapg = {
             title: 'Your Guess'
         });
 
-        google.maps.event.addListener(window.answer_marker, 'mouseup', function() 
+        google.maps.event.addListener(window.answer_marker, 'mouseup', function (e) { parent.mapg.make_guess(e); });
+        /*
+        function() 
         {
             // If the marker hasn't been moved we don't want to do anything:
             if ( parent.mapg.config.centerlatlng.D == this.position.D && parent.mapg.config.centerlatlng.k == this.position.k )
             {
                 //return false;
             }
+});
 
             // Keep people from guessing again.
             window.answer_marker.draggable = false;
@@ -209,17 +313,52 @@ var mapg = {
             {
                 // Start on the boundary work.
                 var guess = { lat: this.position.k, lon: this.position.D }
-                var boundary = new google.maps.KmlLayer({
-                    url: window.mapg.config.boundary_file,
-                    map: this.map
-                });
-                console.log(boundary);
-                google.maps.event.addListener(boundary, 'click', function(kmlEvent) {
-                console.log("This is the kmlEvent:", kmlEvent);
-                  });
+                var geoxml_config = {
+                    map: this.map,
+                    processStyles: true,
+                    zoom: false,
+                    afterParse: find_distance,
+                    failedParse: failed_parse,
+                    createOverlay: create_overlay,
+                    createMarker: create_marker
+                };
+                var kml_parser = new geoXML3.parser(geoxml_config);
+                kml_parser.parse(window.mapg.config.boundary_file);
+                console.log(kml_parser);
+function find_distance(obj)
+{
+console.log('boun', obj);
+    coords = obj[0].placemarks[0].Polygon[0].outerBoundaryIs[0].coordinates;
+    var len = coords.length;
+    var best_guess = 0.0;
+    for ( i = 0; i <= len; i++ )
+    {
+        console.log(coords[i])
+        var distance = parent.mapg.great_circle(coords.lat, coords.lng, this.position.k, this.position.D);
+        
+    }
+}
+function failed_parse(obj)
+{
+console.log('Fail: ', obj);
+}
+function create_overlay(overlay)
+{
+console.log('over', overlay);
+kml_parser.createOverlay(overlay);
+}
+function create_marker(obj)
+{
+console.log('marker', obj);
+kml_parser.createMarker(obj);
+}
+                //google.maps.event.addListener(boundary, 'click', function(kmlEvent) {
+                //console.log("This is the kmlEvent:", kmlEvent);
+                //  });
 
             }
         });
+*/
     }
 };
 
@@ -230,3 +369,17 @@ Math.radians = function (degrees)
 
 
 $(document).ready( function () { mapg.init(); });
+function find_distance(boundary)
+{
+console.log('boun', boundary);
+}
+function create_overlay(overlay)
+{
+console.log('over', overlay);
+kml_parser.createOverlay(overlay);
+}
+function create_marker(obj)
+{
+console.log('marker', obj);
+//kml_parser.createOverlay(overlay);
+}
