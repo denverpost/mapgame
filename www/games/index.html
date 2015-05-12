@@ -102,7 +102,30 @@ $(document).ready( function () {
         radius: 8,
         zoom: 4,
         target: new google.maps.LatLng(39.74068936038659, -104.98829126358032),
-        centerlatlng: new google.maps.LatLng(39,-105.32)
+        centerlatlng: new google.maps.LatLng(39,-105.32),
+        styles: [
+          {
+            "featureType": "road",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.locality",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.province",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.country",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          }
+        ]
     };
 });
 </script>
