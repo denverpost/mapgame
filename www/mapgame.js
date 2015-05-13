@@ -144,7 +144,7 @@ var mapg = {
         // Show the answer.
         if ( distance == 0 )
         {
-            $('#result').text('You guessed it right! Congratulations!');
+            $('#result').text('You got it right! Congratulations!');
         }
         else
         {
