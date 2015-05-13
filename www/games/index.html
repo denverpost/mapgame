@@ -20,7 +20,7 @@
 
     <meta name="twitter:card" value="summary" />
     <meta name="twitter:url" value="http://extras.denverpost.com/app/mapgame/games/colorado.html" />
-    <meta name="twitter:title" value="Denver Map Game" />
+    <meta name="twitter:title" value="Colorado Map Game" />
     <meta name="twitter:description" value="Given a map of North America, how closely can you guess Colorado's location?" />
     <meta name="twitter:image" value="http://extras.denverpost.com/app/mapgame/promos/map-north_america.png" />
     <meta name="twitter:site" value="@denverpost" />
@@ -99,7 +99,7 @@ $(document).ready( function () {
         //boundary_file: '/app/mapgame/www/kml/state/montana.kml',
         boundary_file: 'http://denverpostplus.com/app/mapgame/www/kml/state/colorado.kml',
         unit: 'miles', // miles or km
-        zoom: 4,
+        zoom: 3,
         centerlatlng: new google.maps.LatLng(48,-103),
         styles: [
           {
@@ -148,7 +148,7 @@ $(document).ready( function () {
     <footer>
     <div id='dfp-20' style="margin-bottom:10px;">
         <script type='text/javascript'>
-            googletag.defineSlot('/8013/denverpost.com/News',[[300,250],[300,600],[160,600],[300,1050]], 'dfp-20').addService(googletag.pubads()).setTargeting('pos',['Cube1_RRail_ATF']).setTargeting('kv','movies');                                          
+            googletag.defineSlot('/8013/denverpost.com/News',[[300,250],[300,600],[160,600],[300,1050]], 'dfp-20').addService(googletag.pubads()).setTargeting('pos',['Cube1_RRail_ATF']).setTargeting('kv','travel');                                          
             googletag.pubads().enableSyncRendering();
             googletag.enableServices();                                         
             googletag.display('dfp-20');
@@ -156,7 +156,7 @@ $(document).ready( function () {
     </div>
     <div id='dfp-21' style="margin-bottom:10px;">
         <script type='text/javascript'>
-            googletag.defineSlot('/8013/denverpost.com/News',[[300,250]], 'dfp-21').addService(googletag.pubads()).setTargeting('pos',['Cube2_RRail_mid']).setTargeting('kv','movies');
+            googletag.defineSlot('/8013/denverpost.com/News',[[300,250]], 'dfp-21').addService(googletag.pubads()).setTargeting('pos',['Cube2_RRail_mid']).setTargeting('kv','travel');
             googletag.pubads().enableSyncRendering();
             googletag.enableServices();                                         
             googletag.display('dfp-21');
@@ -166,7 +166,7 @@ $(document).ready( function () {
         //Chartbeat stuff
         _sf_async_config.uid = 2671;
         _sf_async_config.domain = 'denverpost.com';
-        _sf_async_config.sections = '{{slug}}';
+        _sf_async_config.sections = 'travel';
         _sf_async_config.useCanonical = true;
         (function(){
             function loadChartbeat() {
@@ -185,6 +185,7 @@ $(document).ready( function () {
     <p>
         <a href="http://www.denverpost.com/weather#denver">Denver Weather</a> 
         &bull; <a href="http://dptv.denverpost.com/">Denver TV News</a>
+        &bull; <a href="http://www.denverpost.com/broncos">Denver Broncos</a>
     </p>
     </footer>
 </body
