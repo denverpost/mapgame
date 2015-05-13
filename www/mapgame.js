@@ -1,4 +1,24 @@
 var mapg = {
+    init: function ()
+    {
+        // Config handling. External config objects must be named mapg_config
+        if ( typeof window.mapg_config !== 'undefined' )
+        {
+            this.update_config(mapg_config);
+        }
+        this.slug = this.build_slug();
+        this.map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
+
+        answer_marker = new google.maps.Marker(
+        {
+            position: parent.mapg.config.centerlatlng,
+            map: this.map,
+            draggable: true,
+            title: 'Your Guess'
+        });
+
+        google.maps.event.addListener(window.answer_marker, 'mouseup', function (guess) { parent.mapg.make_guess(guess); });
+    },
     parent: this,
     in_dev: 0,
     config: 
@@ -246,27 +266,6 @@ var mapg = {
     create_marker: function create_marker(obj)
     {
         kml_parser.createMarker(obj);
-    },
-    init: function ()
-    {
-        // Config handling. External config objects must be named mapg_config
-        if ( typeof window.mapg_config !== 'undefined' )
-        {
-            this.update_config(mapg_config);
-        }
-        this.slug = this.build_slug();
-
-        this.map = new google.maps.Map(document.getElementById('map-canvas'), this.mapOptions);
-
-        answer_marker = new google.maps.Marker(
-        {
-            position: parent.mapg.config.centerlatlng,
-            map: this.map,
-            draggable: true,
-            title: 'Your Guess'
-        });
-
-        google.maps.event.addListener(window.answer_marker, 'mouseup', function (guess) { parent.mapg.make_guess(guess); });
     }
 };
 
