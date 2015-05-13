@@ -103,23 +103,21 @@ var mapg = {
                 // **TODO provide a link so they can see everyone else's guesses.
                 // data will look something like { "guesses": "1", "average": "8" }
                 var average = Math.round(data.average);
-                $('#result').append(' ' + data.guesses + ' other people have guessed. An average guess landed ' + average + ' miles away.');
+                $('#result').append(' ' + data.guesses + ' other people have played. An average guess landed ' + average + ' miles away.');
                 if  ( typeof data.correct !== 'undefined' )
                 {
                     var people = "people";
                     if ( data.correct == 1 ) people = "person";
-                    $('#result').append(' ' + data.correct + ' ' + people + ' guessed correctly.');
+                    $('#result').append(' ' + data.correct + ' ' + people + ' picked right.');
                     if ( distance == 0 && data.correct == 1 )
                     {
                         $('#result').append(' <span style="color:red; clear: both;">You\'re the first to get this right! Congrats!</span>');
                     }
                 }
             })
-                .done(function() {
-                    // Second success
-                })
                 .fail(function() {
                     // Error
+                    $('#result').append('Sorry, we could not reach the upstream servers. Please refresh the page and try again.');
                 })
                 .always(function() {
                     // Complete
