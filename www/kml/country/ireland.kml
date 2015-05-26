@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="state-">
+<name></name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+<MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-9.656389,53.222223 -9.724724,53.268053 -9.660833,53.280001 -9.656389,53.222223</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>-9.964169,54.01861 -9.955002,53.876665 -10.268612,53.975 -9.964169,54.01861</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>-8.518612,54.964167 -8.546946,55.011942 -8.490557,54.994722 -8.518612,54.964167</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>-7.406389,54.953333 -8.159445,54.441942 -7.559444,54.12694 -7.030834,54.417772 -6.266975,54.099833 -6.013056,52.945002 -6.361111,52.1775 -6.994722,52.282778 -9.234167,51.480555 -9.817501,51.445551 -9.535557,51.750002 -10.132502,51.593332 -9.577501,51.872217 -10.338593,51.782923 -9.757778,52.148607 -10.460835,52.182222 -8.818335,52.665552 -9.93639,52.555834 -8.941113,53.264162 -10.175835,53.407778 -9.56139,53.85972 -9.940556,53.866945 -9.787779,53.941942 -10.006111,54.218889 -10.124445,54.096384 -10.112223,54.229998 -8.471668,54.27389 -8.668335,54.349443 -8.188334,54.633608 -8.800835,54.691668 -8.317501,55.108889 -7.657499,55.274439 -7.681389,54.948328 -7.393888,55.379442 -6.931667,55.235834 -7.252506,55.070597 -7.406389,54.953333</coordinates></LinearRing></outerBoundaryIs><innerBoundaryIs><LinearRing><coordinates>-8.436945,54.944445 -8.438612,54.955278 -8.45389,54.954996 -8.436945,54.944445</coordinates></LinearRing></innerBoundaryIs></Polygon></MultiGeometry>
+</Placemark>
+</kml>
