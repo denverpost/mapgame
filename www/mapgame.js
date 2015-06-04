@@ -11,13 +11,13 @@ var mapg = {
 
         answer_marker = new google.maps.Marker(
         {
-            position: parent.mapg.config.centerlatlng,
+            position: window.mapg.config.centerlatlng,
             map: this.map,
             draggable: true,
             title: 'Your Guess'
         });
 
-        google.maps.event.addListener(window.answer_marker, 'mouseup', function (guess) { parent.mapg.make_guess(guess); });
+        google.maps.event.addListener(window.answer_marker, 'mouseup', function (guess) { window.mapg.make_guess(guess); });
     },
     parent: this,
     in_dev: 0,
@@ -238,12 +238,12 @@ var mapg = {
         coords = obj[0].placemarks[0].Polygon[0].outerBoundaryIs[0].coordinates;
         var len = coords.length;
         var best_guess = 0.0;
-        var in_bounds = google.maps.geometry.poly.containsLocation(parent.mapg.guess.latLng, obj[0].gpolygons[0]);
+        var in_bounds = google.maps.geometry.poly.containsLocation(window.mapg.guess.latLng, obj[0].gpolygons[0]);
         if ( in_bounds === false )
         {
             for ( i = 0; i < len; i++ )
             {
-                var distance = parent.mapg.great_circle(coords[i].lat, coords[i].lng, parent.mapg.guess.latLng.A, parent.mapg.guess.latLng.F);
+                var distance = window.mapg.great_circle(coords[i].lat, coords[i].lng, window.mapg.guess.latLng.A, window.mapg.guess.latLng.F);
                 if ( best_guess === 0.0 ) best_guess = distance;
                 else if ( distance < best_guess ) best_guess = distance;
             }
@@ -253,7 +253,7 @@ var mapg = {
         {
             var guess_rounded = 0;
         }
-        parent.mapg.show_answer(guess_rounded);
+        window.mapg.show_answer(guess_rounded);
     },
     failed_parse: function failed_parse(obj)
     {
