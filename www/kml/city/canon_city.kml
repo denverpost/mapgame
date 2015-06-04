@@ -9,9 +9,6 @@
     </LineStyle>
   </Style>
          <MultiGeometry>
-            <Point>
-               <coordinates>-105.22007623614591,38.44301514039239</coordinates>
-            </Point>
             <Polygon>
                <outerBoundaryIs>
                   <LinearRing>
