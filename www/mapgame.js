@@ -23,6 +23,7 @@ var mapg = {
     in_dev: 0,
     config: 
     { 
+        group_game: 1,
         log_guesses: 0,
         log_url: '',
         target_name: '',
@@ -115,7 +116,7 @@ var mapg = {
         // Send a request to a remote server to log how far the guess was from the mark
         if ( this.config.log_guesses !== 0 )
         {
-            var params = '?slug=' + this.slug + '&distance=' + distance + '&lat=' + lat + '&lon=' + lon + '&callback=';
+            var params = '?slug=' + this.config.target_slug + '&distance=' + distance + '&lat=' + lat + '&lon=' + lon + '&callback=';
             var jqxhr = $.getJSON( this.config.log_url + params, function(data) 
             {
                 // Success
@@ -134,14 +135,21 @@ var mapg = {
                         $('#result').append(' <span style="color:red; clear: both;">You\'re the first to get this right! Congrats!</span>');
                     }
                 }
-            })
+                })
                 .fail(function() {
                     // Error
-                    $('#result').append('Sorry, we could not reach the upstream servers. Please refresh the page and try again.');
+                    $('#result').append(' Sorry, we could not reach the upstream servers. Please refresh the page and try again.');
                 })
                 .always(function() {
                     // Complete
                 });
+
+            // If this map is part of a group game, communicate the distance to the parent frame.
+            // Group games, as of now, will be a bunch of iframes.
+            if ( typeof parent.map_group !== 'undefined' )
+            {
+                parent.map_group.add_guess(distance);
+            }
         }
     },
     great_circle: function (lat1, lon1, lat2, lon2)
