@@ -134,6 +134,10 @@ var mapg = {
                     {
                         $('#result').append(' <span style="color:red; clear: both;">You\'re the first to get this right! Congrats!</span>');
                     }
+                    else if ( data.correct < 11 )
+                    {
+                        $('#result').append(' <span style="color:red; clear: both;">You\'re the ' + this.to_ordinal(data.correct) + ' to get this right! Right on!</span>');
+                    }
                 }
                 })
                 .fail(function() {
@@ -151,6 +155,13 @@ var mapg = {
                 parent.map_group.add_guess(distance);
             }
         }
+    },
+    to_ordinal: function(n)
+    {
+        // From https://gist.github.com/jlbruno/1535691
+       var s=["th","st","nd","rd"],
+           v=n%100;
+       return n+(s[(v-20)%10]||s[v]||s[0]);
     },
     great_circle: function (lat1, lon1, lat2, lon2)
     {
