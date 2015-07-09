@@ -17,6 +17,7 @@ CREATE TABLE `games` (
   `description` text COLLATE utf8_bin NOT NULL,
   `date_expire` date DEFAULT NULL,
   `guess_average` float NOT NULL DEFAULT '0',
+  `wrong_guess_average` float NOT NULL DEFAULT '0',
   `guesses` int(11) NOT NULL DEFAULT '0',
   `lat` float NOT NULL,
   `lon` float NOT NULL,
