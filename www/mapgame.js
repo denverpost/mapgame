@@ -23,6 +23,7 @@ var mapg = {
     in_dev: 0,
     config: 
     { 
+        snark: 1,
         group_game: 1,
         log_guesses: 0,
         log_url: '',
