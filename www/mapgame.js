@@ -132,6 +132,8 @@ var mapg = {
                     if ( data.correct == 1 ) people = "person";
 
                     var percent = Math.round(data.correct/data.guesses*1000)/10;
+                    if ( data.guesses == 0 ) percent = 0;
+
                     $('#result').append(' ' + data.correct + ' ' + people + ' (' + percent + '%) picked right.');
                     if ( distance == 0 && data.correct == 1 )
                     {
