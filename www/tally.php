@@ -55,7 +55,7 @@ if ( $db->connect_errno )
 }
 
 // Get the game id
-$sql = 'SELECT id, guesses, guess_average, correct FROM games WHERE slug = "' . $slug . '" LIMIT 1';
+$sql = 'SELECT id, guesses, guess_average, wrong_guess_average, correct FROM games WHERE slug = "' . $slug . '" LIMIT 1';
 $result = $db->query($sql);
 $game = $result->fetch_object();
 $games_id = intval($game->id);
@@ -76,7 +76,16 @@ endif;
 $new_guesses = $game->guesses + 1;
 if ( $distance == 0 ) $correct += 1;
 $new_average = floatval(( ( $game->guesses * $game->guess_average ) + $distance ) / $new_guesses);
-$sql = 'UPDATE games SET correct = ' . $correct . ', guesses = ' . $new_guesses . ', guess_average = ' . $new_average . ' WHERE id = ' . $games_id . ' LIMIT 1';
+
+$wrong = $new_guesses - $correct;
+if ( $wrong < 1 ) $wrong = 1;
+$new_wrong_average =  floatval(( ( ( $wrong - 1 ) * $game->wrong_guess_average ) + $distance ) / $wrong );
+
+$sql = 'UPDATE games SET correct = ' . $correct . ',
+    guesses = ' . $new_guesses . ',
+    guess_average = ' . $new_average . ',
+    wrong_guess_average = ' . $new_wrong_average . '
+    WHERE id = ' . $games_id . ' LIMIT 1';
 $result = $db->query($sql);
 
 // **** TELL THE READER HOW THEY DID.
