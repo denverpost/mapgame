@@ -77,9 +77,12 @@ $new_guesses = $game->guesses + 1;
 if ( $distance == 0 ) $correct += 1;
 $new_average = floatval(( ( $game->guesses * $game->guess_average ) + $distance ) / $new_guesses);
 
-$wrong = $new_guesses - $correct;
-if ( $wrong < 1 ) $wrong = 1;
-$new_wrong_average =  floatval(( ( ( $wrong - 1 ) * $game->wrong_guess_average ) + $distance ) / $wrong );
+$new_wrong_average = $game->wrong_guess_average;
+if ( $distance > 0 ):
+    $wrong = $new_guesses - $correct;
+    if ( $wrong < 1 ) $wrong = 1;
+    $new_wrong_average =  floatval(( ( ( $wrong - 1 ) * $game->wrong_guess_average ) + $distance ) / $wrong );
+endif;
 
 $sql = 'UPDATE games SET correct = ' . $correct . ',
     guesses = ' . $new_guesses . ',
