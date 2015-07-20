@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Map Game Admin</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<style type="text/css" media="screen"></style>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script>
+function updateLatLonFields(lat, lon) {
+    $("#form_center").text(lat + ', ' + lon);
+    $("#lat").val(lat);
+    $("#long").val(lon);
+}
+
+function showMap() {
+    var mapOptions =
+    {
+        zoom: 5,
+        center: new google.maps.LatLng(39.74068936038659, -104.98829126358032),
+        disableDefaultUI: true,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    gmap = new google.maps.Map(document.getElementById('gmap'), mapOptions);
+    var timer = null;
+    
+    google.maps.event.addListener(gmap, "center_changed", function() {
+        var center = gmap.getCenter();
+        updateLatLonFields(center.lat(), center.lng());
+    });
+    google.maps.event.addListener(gmap, "zoom_changed", function() {
+        var zoom = gmap.getZoom();
+        $("#form_zoom").text(zoom);
+        $("#zoom").val(zoom);
+    });
+
+    // This logic handles marker placement.
+    // The marker is the target people are guessing for.
+    google.maps.event.addDomListener(gmap,
+        'dblclick', function() {
+            // We only want to create one marker.
+            if ( typeof window.marker == 'undefined' )
+            {
+                var center = window.gmap.getCenter();
+                var marker = new google.maps.Marker({
+                    position: center,
+                    map: window.gmap,
+                    draggable: true,
+                    title: 'Target object'
+                });
+
+                // k is lat, D is long in Google maps.
+                $('#form_target').text(center.k + ', ' + center.D);
+                $("#target_lat").val(center.k);
+                $("#target_long").val(center.D);
+                window.marker = marker;
+
+                // When the marker position changes, update the form.
+                google.maps.event.addListener(window.marker, 'mouseup', function() 
+                {
+                    $('#form_target').text(this.position.k + ', ' + this.position.D);
+                    $("#target_lat").val(this.position.k);
+                    $("#target_long").val(this.position.D);
+                });
+            }
+        }
+    );
+    
+    // Set up Geocoder
+    window.geocoder = new google.maps.Geocoder();
+    
+    // If query string was provided, geocode it
+    var bits = window.location.href.split('?');
+    if (bits[1]) {
+        var location = decodeURI(bits[1]);
+        document.getElementById('geocodeInput').value = location;
+        var input = { address: location };
+        geocode(input);
+    }
+    
+    // Set up the form
+    var geocodeForm = document.getElementById('geocodeForm');
+    geocodeForm.onsubmit = function() {
+        var input = { address: document.getElementById('geocodeInput').value };
+        geocode(input);
+        return false;
+    }
+}
+
+var accuracyToZoomLevel = [
+    1,  // 0 - Unknown location
+    5,  // 1 - Country
+    6,  // 2 - Region (state, province, prefecture, etc.)
+    8,  // 3 - Sub-region (county, municipality, etc.)
+    11, // 4 - Town (city, village)
+    13, // 5 - Post code (zip code)
+    15, // 6 - Street
+    16, // 7 - Intersection
+    17, // 8 - Address
+    17  // 9 - Premise
+];
+
+function geocodeComplete(result, status) {
+    if ( status !== google.maps.GeocoderStatus.OK ) {
+        alert('Could not geocode "' + result[0].formatted_address + '"');
+        return;
+    }
+    var placemark = result[0]; // Only use first result
+    //var accuracy = placemark.AddressDetails.Accuracy;
+    //var zoomLevel = accuracyToZoomLevel[accuracy] || 1;
+    var zoomLevel = 10;
+    var lon = placemark.geometry.location.D;
+    var lat = placemark.geometry.location.k;
+    window.gmap.setCenter(new google.maps.LatLng(lat, lon), zoomLevel);
+}
+
+function geocode(input) {
+    geocoder.geocode(input, geocodeComplete);
+}
+
+</script>
+</head>
+<body id="hd" onload="showMap();">
+<h1>Map Game Admin</h1>
+<style>
+html, body, #map-canvas 
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map-canvas { width: 75%; margin: auto; }
+body {
+    margin: 0;
+    margin-bottom: 3em;
+    padding: 0;
+    font-family: Georgia, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+#hd {
+    text-align: center;
+    border-bottom: 2px solid black;
+}
+#hd h1 {
+    margin-bottom: 0;
+    font-size: 1.5em;
+}
+div#ft {
+    border-top: 2px solid black;
+}
+div#ft p {
+    width: 500px;
+    margin: 1em auto;
+}
+p#builtby {
+    font-size: 0.8em;
+    text-align: right;
+    color: #666;
+}
+div#bd {
+    position: relative;
+}
+div#gmap {
+    width: 100%;
+    height: 400px; /* If you change this don't forget to change the crosshair position to match */
+}
+div#crosshair {
+    position: absolute;
+    top: 192px;
+    height: 19px;
+    width: 19px;
+    left: 50%;
+    margin-left: -8px;
+    display: block;
+    background: url(crosshair.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+    </style>
+<p>
+    Note: You are setting map centerpoint, guess-target and zoom level here. 
+    Double-click the map to add the guess-target, then click and drag it to where you want it.
+</p>
+<p>
+    Because many locations we're guessing are not a point, but an area, 
+    you will also need to provide the number of miles around the guess-point that will be considered a correct answer.
+</p>
+<h2>1. Move the map to where you want it to show.</h2>
+<p>The map's center and the map's zoom level is what readers will see. If you want some help finding something, type it in the "Place name" field below.</p>
+<form id="ageocodeForm" action="http://maps.google.com/maps"></form>
+<h2>2. Double-click the map when you're close to the location you want to create the target-marker.</h2>
+<p>Click and drag that marker to the place people are guessing.</p>
+<form id="geocodeForm" action="#">
+            <p>
+                <label for="geocodeInput">Place name: </label>
+                <input type="text" name="q" id="geocodeInput">
+
+                <input type="hidden" name="output" value="html">
+                <input type="submit" value="Zoom to place">
+            </p>
+    <div id="bd">
+        <div id="gmap"></div>
+        <div id="crosshair"></div>
+    </div>
+</form>
+<h2>3. Copy the markup below into a new article</h2>
+<style type="text/css">
+pre 
+{
+    text-align: left; 
+    margin: 0 10%;
+}
+</style>
+<pre>
+&lt;script>
+$(document).ready( function () { 
+    mapg_config = 
+    { 
+        log_guesses: 1,
+        log_url: '',
+        target_name: '<span id="form_name"></span>',
+        target_slug: '<span id="form_slug"></span>',
+        target_type: 'latlng',
+        unit: 'miles', // miles or km
+        radius: <span id="form_radius">0</span>,
+        zoom: <span id="form_zoom">5</span>,
+        target: new google.maps.LatLng(<span id="form_target"></span>),
+        centerlatlng: new google.maps.LatLng(<span id="form_center">27.175015 , 78.042155</span>)
+    };
+});
+&lt;/script>
+    &lt;script src='https://maps.googleapis.com/maps/api/js?v=3.exp">&lt;/script>
+    &lt;script src='http://extras.denverpost.com/app/mapgame/mapgame.js">&lt;/script>
+    &lt;h2>Where is LOCATIONNAME on the map?&lt;/h2>
+    &lt;p>
+        Click and drag the marker to where you think LOCATIONNAME is on this map of LOCATIONAREA. 
+        When you drop it, the answer will appear, and you'll see how your guess compares with everyone else who has played.
+    &lt;/p>
+    &lt;h3 id="result">&lt;/h3>
+    &lt;div id="map-canvas">&lt;/div>
+    &lt;style type="text/csss">
+        #map-canvas { width: 100%; height: 400px; margin: auto; }
+    &lt;/style>
+</pre>
+<h2>4. Give this game a name and specify the # of miles around the guess-target that is acceptable.</h2>
+<form id="mapgame" action="./admin.php" method="GET" target="_blank">
+    <input type="text" id="name" name="name" value="" maxlength="50" placeholder="Name" />
+    <input type="hidden" id="slug" name="slug" value="" maxlength="50" />
+    <input type="text" id="radius" name="radius" value="" maxlength="50" placeholder="Guess Miles Radius" />
+    <input type="hidden" id="lat" name="lat" value="" maxlength="50" />
+    <input type="hidden" id="long" name="long" value="" maxlength="50" />
+    <input type="hidden" id="target_lat" name="target_lat" value="" maxlength="50" />
+    <input type="hidden" id="target_long" name="target_long" value="" maxlength="50" />
+    <input type="hidden" id="zoom" name="zoom" value="" maxlength="2" />
+    <input type="submit" value="Create the game" />
+</form>
+<script>
+$('#radius').on('input', function() {
+    $('#form_radius').text(this.value);
+});
+$('#name').on('input', function() {
+    $('#form_name').text(this.value);
+    $('#form_slug').text(slugify(this.value));
+    $('#slug').val(slugify(this.value));
+});
+function slugify(str)
+{
+    // Cribbed from https://github.com/andrefarzat/slugify/blob/master/slugify.js
+    var from = 'àáäãâèéëêìíïîòóöôõùúüûñç·/_,:;',
+    to = 'aaaaaeeeeiiiiooooouuuunc------';
+    var i = 0,
+        len = from.length;
+    str = str.toLowerCase();
+    for( ; i < len; i++ ){
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+    return str.replace(/^\s+|\s+$/g, '') //trim
+        .replace(/[^-a-zA-Z0-9\s]+/ig, '')
+        .replace(/\s/gi, "_");
+}
+</script>
+</body
+</html>
