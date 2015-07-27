@@ -11,13 +11,27 @@ var mapg = {
 
         answer_marker = new google.maps.Marker(
         {
-            position: window.mapg.config.centerlatlng,
+            position: this.config.markerlatlng,
             map: this.map,
             draggable: true,
             title: 'Your Guess'
         });
 
         google.maps.event.addListener(window.answer_marker, 'mouseup', function (guess) { window.mapg.make_guess(guess); });
+
+        // If we start with a loaded boundary, load it
+        if ( this.config.border_file !== '' )
+        {
+            var geoxml_config = {
+                map: this.map,
+                processStyles: true,
+                zoom: false,
+                createOverlay: this.create_overlay,
+                createMarker: this.create_marker
+            };
+            var kml_parser = new geoXML3.parser(geoxml_config);
+            kml_parser.parse(this.config.border_file);
+        }
     },
     parent: this,
     in_dev: 0,
@@ -31,11 +45,13 @@ var mapg = {
         target_slug: '',
         target_type: 'latlng',
         boundary_file: '',
+        border_file: '',
         unit: 'miles', // miles or km
         zoom: 6,
         radius: 0,
         target: new google.maps.LatLng(27.175015 , 78.042155),
-        centerlatlng: new google.maps.LatLng(0, 0)
+        centerlatlng: new google.maps.LatLng(0, 0),
+        markerlatlng: 0
     },
     update_config: function (config) {
         // Take an external config object and update this config object.
@@ -50,7 +66,15 @@ var mapg = {
         // Zoom and center are something that goes in the mapg.mapOptions object,
         // so we update that separately.
         this.mapOptions.zoom = this.config.zoom;
+        // Older maps only have centerlatlng -- separating centerlatlng from the markerlatlng
+        // gives us more flexibility on where we put the marker.
+        if ( this.config.markerlatlng === 0 )
+        {
+            this.config.markerlatlng = this.config.centerlatlng;
+        }
+
         this.mapOptions.center = this.config.centerlatlng;
+
         if ( typeof this.config.styles !== 'undefined' )
         {
             this.mapOptions.styles = this.config.styles;

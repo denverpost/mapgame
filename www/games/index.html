@@ -58,9 +58,14 @@
     <script type="text/javascript" src="http://www.googletagservices.com/tag/js/gpt.js"></script>
 
     <script type="text/javascript">
+        var iframe = '', kiosk = '';
+        if ( document.location.hash === '#iframe' ) iframe = 1;
+        if ( document.location.hash === '#kiosk' ) { iframe = 1; kiosk = 1; }
+        if ( iframe === '' ) {
         //Chartbeat startup
         var _sf_startpt=(new Date()).getTime();
         var _sf_async_config={};
+        }
     </script>
 </head>
 <body>
@@ -81,11 +86,11 @@
     dataLayer.push({
         'ga_ua':'UA-61435456-7',
         'quantcast':'p-4ctCQwtnNBNs2',
-        'quantcast label': 'travel',
+        'quantcast label': 'Denver',
         'comscore':'6035443',
         'errorType':'',
         'Publisher Domain':'denverpost.com',
-        'Publisher Product':'extras.denverpost.com',
+        'Publisher Product':'denverpost.com',
         'Dateline':'',
         'Publish Hour of Day':'',
         'Create Hour of Day':'',
@@ -94,7 +99,7 @@
         'Mobile Presentation':is_mobile(),
         'kv':'travel',
         'Release Version':'',
-        'Digital Publisher':'',
+        'Digital Publisher':'denverpost.com',
         'Platform':'custom',
         'Section':'Travel',
         'Taxonomy1':'Lifestyle',
@@ -102,13 +107,13 @@
         'Taxonomy3':'Map Game',
         'Taxonomy4':document.location.pathname,
         'Taxonomy5':'',
-        'Content Source':'',
+        'Digital Publisher':'denverpost.com',
         'Canonical URL': 'http://extras.denverpost.com' + document.location.pathname,
         'Slug':document.location.pathname,
         'Content ID':'',
         'Page Type':'game',
         'Publisher State':'CO',
-        'Byline':'By Joe Murphy',
+        'Byline':'',
         'Content Title':document.title,
         'URL':document.location.href,
         'Page Title':document.title,
@@ -221,7 +226,7 @@ $(document).ready( function () {
         //Chartbeat stuff
         _sf_async_config.uid = 2671;
         _sf_async_config.domain = 'denverpost.com';
-        _sf_async_config.sections = 'travel';
+        _sf_async_config.sections = 'travel,games';
         _sf_async_config.useCanonical = true;
         (function(){
             function loadChartbeat() {
@@ -245,5 +250,11 @@ $(document).ready( function () {
         &bull; <a href="http://www.denverpost.com/sudoku">Sudoku</a>
     </p>
     </footer>
-</body
+    <script>
+        if ( iframe === 1 )
+        {
+            $('h1, footer, #previous').remove()
+        }
+    </script>
+</body>
 </html>
