@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="poi-coors_field">
+<name>Coors Field</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+         <MultiGeometry>
+            <Polygon>
+               <outerBoundaryIs>
+                  <LinearRing>
+                     <coordinates>
+-104.994117,39.754639 -104.992079,39.756140 -104.994010,39.757690 -104.996113,39.756123 
+</coordinates>
+                  </LinearRing>
+               </outerBoundaryIs>
+            </Polygon>
+         </MultiGeometry>
+</Placemark>
+</kml>
