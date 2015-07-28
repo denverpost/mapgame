@@ -121,7 +121,8 @@ var mapg = {
         
         str = str.toLowerCase();
 
-        for( ; i < len; i++ ){
+        for ( ; i < len; i++ )
+        {
             str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
         }
 
@@ -170,11 +171,9 @@ var mapg = {
                 }
                 })
                 .fail(function() {
-                    // Error
                     $('#result').append(' Sorry, we could not reach the upstream servers. Please refresh the page and try again.');
                 })
                 .always(function() {
-                    // Complete
                 });
 
             // If this map is part of a group game, communicate the distance to the parent frame.
@@ -282,7 +281,8 @@ var mapg = {
     },
     find_distance: function find_distance(obj)
     {
-        // See how close the guess was to the nearest point, in case the guess was outside the boundary.
+        // See how close the guess was to the nearest point,
+        // in case the guess was outside the boundary.
         coords = obj[0].placemarks[0].Polygon[0].outerBoundaryIs[0].coordinates;
         var len = coords.length;
         var best_guess = 0.0;
@@ -307,14 +307,8 @@ var mapg = {
     {
         //console.log('Fail: ', obj);
     },
-    create_overlay: function create_overlay(obj)
-    {
-        kml_parser.createOverlay(obj);
-    },
-    create_marker: function create_marker(obj)
-    {
-        kml_parser.createMarker(obj);
-    }
+    create_overlay: function create_overlay(obj) { kml_parser.createOverlay(obj); },
+    create_marker: function create_marker(obj) { kml_parser.createMarker(obj); }
 };
 
 Math.radians = function (degrees)
