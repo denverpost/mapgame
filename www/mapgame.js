@@ -217,13 +217,14 @@ var mapg = {
         {
             $('#result').text('Your guess landed ' + distance + ' miles from the target.');
         }
-        this.log_answer(distance, this.guess.latLng.A, this.guess.latLng.F);
+        this.log_answer(distance, this.guess.latLng.G, this.guess.latLng.K);
     },
     make_guess: function (guess)
     {
         // If the marker hasn't been moved we don't want to do anything:
-        if ( this.config.centerlatlng.A == guess.latLng.A && this.config.centerlatlng.F == guess.latLng.F )
+        if ( this.config.markerlatlng.G == guess.latLng.G && this.config.markerlatlng.K == guess.latLng.K )
         {
+            console.log(this.config, guess, this.config.markerlatlng.G, guess.latLng.G);
             return false;
         }
 
@@ -238,8 +239,8 @@ var mapg = {
         // boundary target checks. For boundary checks we need the KML string for the boundary.
         if ( this.config.target_type == 'latlng' )
         {
-            // A is lat, F is long in Google maps.
-            var distance = this.great_circle(this.config.target.A, this.config.target.F, guess.latLng.A, guess.latLng.F)
+            // G is lat, K is long in Google maps.
+            var distance = this.great_circle(this.config.target.G, this.config.target.K, guess.latLng.G, guess.latLng.K)
             var distance_rounded = Math.round(distance);
 
             // If we have a value for mapg.config.radius, we subtract that from the distance.
@@ -265,7 +266,7 @@ var mapg = {
         {
             // Start on the boundary work.
             // this.find_distance handles the guess calculations.
-            var guess = { lat: guess.latLng.A, lon: guess.latLng.F }
+            var guess = { lat: guess.latLng.G, lon: guess.latLng.K }
             var geoxml_config = {
                 map: this.map,
                 processStyles: true,
@@ -291,7 +292,7 @@ var mapg = {
         {
             for ( i = 0; i < len; i++ )
             {
-                var distance = window.mapg.great_circle(coords[i].lat, coords[i].lng, window.mapg.guess.latLng.A, window.mapg.guess.latLng.F);
+                var distance = window.mapg.great_circle(coords[i].lat, coords[i].lng, window.mapg.guess.latLng.G, window.mapg.guess.latLng.K);
                 if ( best_guess === 0.0 ) best_guess = distance;
                 else if ( distance < best_guess ) best_guess = distance;
             }
