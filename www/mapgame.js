@@ -150,7 +150,9 @@ var mapg = {
                 // **TODO provide a link so they can see everyone else's guesses.
                 // data will look something like { "guesses": "1", "average": "8" }
                 var average = Math.round(data.average);
-                $('#result').append(' ' + data.guesses + ' other people have played. An average guess landed ' + average + ' miles away.');
+                var s = 's';
+                if ( average === 1 ) s = '';
+                $('#result').append(' ' + data.guesses + ' other people have played. An average guess landed ' + average + ' mile' + s + ' away.');
                 if  ( typeof data.correct !== 'undefined' )
                 {
                     var people = "people";
@@ -215,7 +217,9 @@ var mapg = {
         }
         else
         {
-            $('#result').text('Your guess landed ' + distance + ' miles from the target.');
+            var s = 's';
+            if ( distance === 1 ) s = '';
+            $('#result').text('Your guess landed ' + distance + ' mile' + s + ' from the target.');
         }
         this.log_answer(distance, this.guess.latLng.G, this.guess.latLng.K);
     },
