@@ -4,25 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>Map Games</title>
+    <title>Arizona Map Game - The Denver Post</title>
 
-    <link rel="canonical" href="http://extras.denverpost.com/app/mapgame/games/index.html" />
+    <link rel="canonical" href="http://extras.denverpost.com/app/mapgame/games/arizona.html" />
     <link rel="shortcut icon" href="http://extras.mnginteractive.com/live/media/favIcon/dpo/favicon.ico" type="image/x-icon" />
 
     <meta name="distribution" content="global" />
     <meta name="robots" content="index" />
-    <meta name="title" content="Map Game" />
+    <meta name="title" content="Arizona Map Game" />
     <meta name="language" content="en, sv" />
     <meta name="Copyright" content="Copyright &copy; The Denver Post." />
 
-    <meta name="description" content="Here's a list of our map games / geography quizzes">
-    <meta name="news_keywords" content="Greece, Map, Cartography, Game">
+    <meta name="description" content="Given a map of North America, how closely can you guess Arizona's location?">
+    <meta name="news_keywords" content="Arizona, Denver, Cartography, Game">
 
     <meta name="twitter:card" value="summary" />
-    <meta name="twitter:url" value="http://extras.denverpost.com/app/mapgame/games/index.html" />
-    <meta name="twitter:title" value="Map Game" />
-    <meta name="twitter:description" value="Here's a list of our map games / geography quizzes" />
-    <meta name="twitter:image" value="http://extras.denverpost.com/app/mapgame/promos/map-world.png" />
+    <meta name="twitter:url" value="http://extras.denverpost.com/app/mapgame/games/arizona.html" />
+    <meta name="twitter:title" value="Arizona Map Game" />
+    <meta name="twitter:description" value="Given a map of North America, how closely can you guess Arizona's location?" />
+    <meta name="twitter:image" value="http://extras.denverpost.com/app/mapgame/promos/map-north_america.png" />
     <meta name="twitter:site" value="@denverpost" />
     <meta name="twitter:domain" value="denverpost.com" />
     <meta name="twitter:creator" value="@joemurph">
@@ -34,12 +34,12 @@
     <meta name="twitter:app:id:googleplay" value="com.ap.denverpost" />
 
     <meta property="fb:app_id" content="105517551922"/>
-    <meta property="og:title" content="Map Game" />
+    <meta property="og:title" content="Arizona Map Game" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="http://extras.denverpost.com/app/mapgame/games/index.html" />
-    <meta property="og:image" content="http://extras.denverpost.com/app/mapgame/promos/map-world.png" />
+    <meta property="og:url" content="http://extras.denverpost.com/app/mapgame/games/arizona.html" />
+    <meta property="og:image" content="http://extras.denverpost.com/app/mapgame/promos/map-north_america.png" />
     <meta property="og:site_name" content="The Denver Post" />
-    <meta property="og:description" content="Here's a list of our map games / geography quizzes" />
+    <meta property="og:description" content="Given a map of North America, how closely can you guess Arizona's location?" />
     <meta property="article:publisher" content="https://www.facebook.com/denverpost" />
 
     <meta name="google-site-verification" content="2bKNvyyGh6DUlOvH1PYsmKN4KRlb-0ZI7TvFtuKLeAc" />
@@ -131,58 +131,68 @@
 })
 (window,document,'script','dataLayer','GTM-TLFP4R');
 </script><!-- End Google Tag Manager -->
-    <h1>Map Games & Geography Quizzes</h1>
+    <h1>Arizona Map Game</h1>
 
     <!-- START #MAPGAME# -->
-    <h2>Here are all our map games.</h2>
+
+<script>
+$(document).ready( function () { 
+    mapg_config = 
+    {  
+        log_guesses: 1,
+        //log_url: 'admin/index.php',
+        log_url: 'http://denverpostplus.com/app/mapgame/tally.php',
+        target_name: 'Arizona',
+        target_slug: 'arizona',
+        target_type: 'latlng',
+        target_type: 'boundary',
+        boundary_file: 'http://denverpostplus.com/app/mapgame/www/kml/state/arizona.kml',
+        unit: 'miles', // miles or km
+        zoom: 3,
+        centerlatlng: new google.maps.LatLng(48,-103),
+        markerlatlng: new google.maps.LatLng(48,-103),
+        styles: [
+          {
+            "featureType": "road",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.locality",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.province",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.country",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          }
+        ]
+    };
+});
+</script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,drawing,geometry"></script>
+    <script src="../js/geoxml3.js"></script>
+    <script src="../js/ProjectedOverlay.js"></script>
+    <script src="../mapgame.js"></script>
+    <h2>Where is Arizona on the map?</h2>
     <p>
-        We've built a collection of map games, and here they are:
+        Drag the marker to where you think Arizona is.
+        When you drop it, the answer will appear, and you'll see how your guess compares with everyone else who has played.
     </p>
- 
-<style type="text/css">
-.archive h4 { margin-bottom: 0; margin-top: 1em; }
-</style>
+    <h3 id="result"></h3>
+    <div id="map-canvas"></div>
+    <style type="text/css">
+        #map-canvas { width: 100%; height: 500px; margin: auto; }
+    </style>
 
-<div class="archive">
-<h4 id="colorado-map">Colorado Map Games</h4>
-<ul>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_27963137/map-game-can-you-find-denver-map">Where is Denver? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28100277/can-you-find-colorado-map-north-america">Where is Colorado? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/rockies/ci_28544887/where-is-coors-field">Where is Coors Field? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/music/ci_28576222/where-is-red-rocks">Where is Red Rocks? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/ridetherockies/ci_28258427/map-game-grand-junction-hotchkiss-gunnison-crested-butte-salida-canon-city-westcliffe-ride-rockies-route">Where is Grand Junction, Hotchkiss, Gunnison, Crested Butte, Salida, Cañon City, and Westcliffe? map game</a></li>
-<li>Play the <a href="http://www.heyreverb.com/blog/2015/06/12/map-game-telluride-bluegrass-jazz-aspen-snowmass-riot-fest-denver-salida/104681/">How many of these top Colorado music festivals can you place on a map? game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28139859/game-can-you-place-weld-county-map-colorado">Where is Weld County? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/broncos/ci_28613401/where-is-dove-valley-denver-broncos">Where is the Denver Broncos training facility at Dove Valley? map game</a></li>
-</ul>
-
-<h4>U.S. Map Games</h4>
-<ul>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28104733/can-you-find-tennessee-map-north-america">Where is Tennessee? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28112688/game-can-you-find-kansas-map-north-america">Where is Kansas? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28396123/where-is-nebraska">Where is Nebraska? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28443962/where-is-iowa">Where is Iowa? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28474669/where-is-south-carolina">Where is South Carolina? map game</a></li>
-</ul>
-
-<h4 id="world-map">World Map Games</h4>
-<ul>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28162887/game-can-you-find-syria-world-map">Where is Syria? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28190099/where-is-ireland">Where is Ireland? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28203249/where-is-switzerland">Where is Switzerland? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/travel/ci_28372466/where-is-greece">Where is Greece? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/nationworld/ci_28509373/where-is-iran">Where is Iran? map game</a></li>
-<li>Play the <a href="http://www.denverpost.com/rapids/ci_28602428/where-is-cyprus">Where is Cyprus? map game</a></li>
-
-<!--
-<li>Play the <a href="">Where is ? map game</a></li>
-
-<li>Play the <a href="">Where is ? map game</a></li>
-
-<li>Play the <a href="">Where is ? map game</a></li>
--->
-</ul>
-</div>
     <!-- END #MAPGAME# -->
 
     <footer>
@@ -226,8 +236,6 @@
         <a href="http://www.denverpost.com/weather#denver">Denver Weather</a> 
         &bull; <a href="http://dptv.denverpost.com/">Denver TV News</a>
         &bull; <a href="http://www.denverpost.com/broncos">Denver Broncos</a>
-        &bull; <a href="http://www.denverpost.com/arcade/ci_26520665/daily-crossword">Daily Crossword</a>
-        &bull; <a href="http://www.denverpost.com/sudoku">Sudoku</a>
     </p>
     </footer>
     <script>
