@@ -1,2 +1,1 @@
-SELECT CONCAT(guess, ',', lat, ',', lon) FROM guesses WHERE games_id = 
-26;
+SELECT CONCAT(guess, ',', lat, ',', lon) FROM guesses WHERE games_id = 27;
