@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="poi-dove_valley">
+<name>Dove Valley</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+         <MultiGeometry>
+            <Polygon>
+               <outerBoundaryIs>
+                  <LinearRing>
+                     <coordinates>
+-104.8343,39.5805
+-104.8296,39.5805
+-104.8297,39.5780
+-104.8320,39.5780
+-104.8344,39.5788
+-104.8343,39.5805
+</coordinates>
+                  </LinearRing>
+               </outerBoundaryIs>
+            </Polygon>
+         </MultiGeometry>
+</Placemark>
+</kml>
