@@ -1,6 +1,7 @@
 #!/bin/bash
 # Create a CSV of mapgame results
 echo "distance,lat,lon" > results.tmp
+> results.csv
 ID=27
 while [ "$1" != "" ]; do
     case $1 in
