@@ -166,7 +166,7 @@ var mapg = {
                     {
                         $('#result').append(' <span style="color:red; clear: both;">You\'re the first to get this right! Congrats!</span>');
                     }
-                    else if ( data.correct < 11 )
+                    else if ( distance == 0 && data.correct < 11 )
                     {
                         $('#result').append(' <span style="color:red; clear: both;">You\'re the ' + to_ordinal(data.correct) + ' to get this right! Right on!</span>');
                     }
