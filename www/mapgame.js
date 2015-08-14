@@ -168,7 +168,7 @@ var mapg = {
                     }
                     else if ( data.correct < 11 )
                     {
-                        $('#result').append(' <span style="color:red; clear: both;">You\'re the ' + this.to_ordinal(data.correct) + ' to get this right! Right on!</span>');
+                        $('#result').append(' <span style="color:red; clear: both;">You\'re the ' + to_ordinal(data.correct) + ' to get this right! Right on!</span>');
                     }
                 }
                 })
@@ -185,13 +185,6 @@ var mapg = {
                 parent.map_group.add_guess(distance);
             }
         }
-    },
-    to_ordinal: function(n)
-    {
-        // From https://gist.github.com/jlbruno/1535691
-       var s=["th","st","nd","rd"],
-           v=n%100;
-       return n+(s[(v-20)%10]||s[v]||s[0]);
     },
     great_circle: function (lat1, lon1, lat2, lon2)
     {
@@ -288,6 +281,7 @@ var mapg = {
     {
         // See how close the guess was to the nearest point,
         // in case the guess was outside the boundary.
+        console.log(obj);
         coords = obj[0].placemarks[0].Polygon[0].outerBoundaryIs[0].coordinates;
         var len = coords.length;
         var best_guess = 0.0;
@@ -323,3 +317,11 @@ Math.radians = function (degrees)
 
 
 $(document).ready( function () { mapg.init(); });
+
+var to_ordinal = function(n)
+{
+    // From https://gist.github.com/jlbruno/1535691
+   var s=["th","st","nd","rd"],
+       v=n%100;
+   return n+(s[(v-20)%10]||s[v]||s[0]);
+};
