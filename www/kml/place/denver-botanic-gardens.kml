@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
-<Placemark id="poi-red_rocks">
-<name>Red Rocks</name>
+<Placemark id="poi-denver_botanic_gardens">
+<name>Denver Botanic Gardens</name>
   <Style>
     <LineStyle>
       <width>1</width> 
@@ -13,16 +13,16 @@
                <outerBoundaryIs>
                   <LinearRing>
                      <coordinates>
--105.2078,39.6672
--105.2063,39.6690
--105.2045,39.6672
--105.2040,39.6658
--105.2032,39.6646
--105.2050,39.6636
--105.2056,39.6635
--105.2070,39.6654
--105.2081,39.6666
--105.2078,39.6672
+-104.9641,39.7329
+-104.9641,39.7311
+-104.9607,39.7310
+-104.9607,39.7306
+-104.9602,39.7306
+-104.9599,39.7311
+-104.9599,39.7334
+-104.9610,39.7334
+-104.9609,39.7329
+-104.9641,39.7329
 </coordinates>
                   </LinearRing>
                </outerBoundaryIs>
