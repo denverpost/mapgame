@@ -4,8 +4,8 @@
 <name>France</name>
   <Style>
     <LineStyle>
-      <width>1</width> 
-      <color>ff0000ff</color>
+      <width>0</width> 
+      <color>ccccccff</color>
     </LineStyle>
   </Style>
 <Polygon> <outerBoundaryIs> <LinearRing> <coordinates>

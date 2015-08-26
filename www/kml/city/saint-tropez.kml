@@ -4,7 +4,7 @@
 <name>Saint Tropez</name>
   <Style>
     <LineStyle>
-      <width>1</width> 
+      <width>5</width> 
       <color>ff0000ff</color>
     </LineStyle>
   </Style>
