@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="poi-mile_high">
+<name>Mile High</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+         <MultiGeometry>
+            <Polygon>
+               <outerBoundaryIs>
+                  <LinearRing>
+                     <coordinates>
+-105.0191,39.7475
+-105.0190,39.7453
+-105.0172,39.7435
+-105.0176,39.7421
+-105.0184,39.7408
+-105.0214,39.7407
+-105.0217,39.7410
+-105.0225,39.7412
+-105.0234,39.7417
+-105.0234,39.7471
+-105.0228,39.7475
+</coordinates>
+                  </LinearRing>
+               </outerBoundaryIs>
+            </Polygon>
+         </MultiGeometry>
+</Placemark>
+</kml>
