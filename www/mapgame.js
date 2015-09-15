@@ -149,7 +149,10 @@ var mapg = {
                 // Display how the reader has done compared to everyone else.
                 // **TODO provide a link so they can see everyone else's guesses.
                 // data will look something like { "guesses": "1", "average": "8" }
+
                 var average = Math.round(data.average);
+                if ( average < 5 ) average = Math.round(data.average*10) / 10;
+
                 var s = 's';
                 if ( average === 1 ) s = '';
                 $('#result').append(' ' + data.guesses + ' other people have played. An average guess landed ' + average + ' mile' + s + ' away.');
@@ -173,7 +176,7 @@ var mapg = {
                 }
                 })
                 .fail(function() {
-                    $('#result').append(' Sorry, we could not reach the upstream servers. Please refresh the page and try again.');
+                    $('#result').append(' Sorry, we could not reach the upstream servers. Please <a href="mailto:jmurphy@denverpost.com">email Joe and let him know this game is busted</a>... or you can refresh the page and try again.');
                 })
                 .always(function() {
                 });
