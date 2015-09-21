@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="poi-guantanamo_bay">
+<name>Guantanamo Bay</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+         <MultiGeometry>
+            <Polygon>
+               <outerBoundaryIs>
+                  <LinearRing>
+                     <coordinates>
+-75.2330,19.8985
+-75.2330,19.9359
+-75.1904,19.9746
+-75.0867,19.9740
+-75.0861,19.8998
+-75.1616,19.8875
+</coordinates>
+                  </LinearRing>
+               </outerBoundaryIs>
+            </Polygon>
+         </MultiGeometry>
+</Placemark>
+</kml>
