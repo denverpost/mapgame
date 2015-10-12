@@ -62,6 +62,12 @@ $games_id = intval($game->id);
 $correct = intval($game->correct);
 if ( $games_id == 0 ) die('Bad ID');
 
+// See how many people they did worse than
+$sql = 'SELECT COUNT(*) AS count FROM guesses WHERE games_id = ' . $games_id . ' AND guess < ' . $distance;
+$result = $db->query($sql);
+$obj  = $result->fetch_object();
+$worse_than = intval($obj->count);
+
 // Insert the guess
 if ( $distance != -1 ):
     $sql = 'INSERT INTO guesses 
@@ -92,4 +98,4 @@ $sql = 'UPDATE games SET correct = ' . $correct . ',
 $result = $db->query($sql);
 
 // **** TELL THE READER HOW THEY DID.
-echo '{ "correct": "' . $correct . '", "guesses": "' . $game->guesses . '", "average": "' . $game->guess_average . '" }';
+echo '{ "correct": "' . $correct . '", "guesses": "' . $game->guesses . '", "average": "' . $game->guess_average . '", "worse_than": "' . $worse_than . '" }';
