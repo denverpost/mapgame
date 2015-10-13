@@ -165,6 +165,13 @@ var mapg = {
                     if ( data.guesses == 0 ) percent = 0;
 
                     $('#result').append(' ' + data.correct + ' ' + people + ' (' + percent + '%) picked right.');
+
+                    // Calculate the percent of people they did worse than.
+                    var esses = "es";
+                    if ( data.worse_than == 1 ) esses = "";
+                    percent = Math.round(data.worse_than/data.guesses*1000)/10;
+                    $('#result').append('<br><br>Your guess was further away than ' + data.worse_than + ' other guess' + esses + '. That means you did worse than ' + percent + '% of the people who played this.');
+
                     if ( distance == 0 && data.correct == 1 )
                     {
                         $('#result').append(' <span style="color:red; clear: both;">You\'re the first to get this right! Congrats!</span>');
