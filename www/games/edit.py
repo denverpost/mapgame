@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Remove a block of text and put another block of text in its place.
 # Blocks of text, as of now, are demarcated as such:
 # <!-- START #MAPGAME# -->
