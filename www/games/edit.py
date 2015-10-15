@@ -16,13 +16,30 @@ import csv
 import argparse
 
 class Replace:
-    pass
+    """ Extended search and replace functionality tuned toward maintaining
+        a bunch of flat files easily with the aid of marked blocks in the 
+        flat files and include files to insert into them.
+        """
+
+    def __init__(self, filename, search, replace):
+        """ Set the variables.
+            """
+        pass
+
+    def is_file(self, path):
+        """ Figure out if a string is a path to a file or just a string.
+            """
+        pass
+
+    def replace(self):
+        """ Look for the search pattern, then replace it with whatever.
+            """
 
 def main(args):
     """ 
         """
     for item in args.files[0]:
-        obj = Replace(item)
+        obj = Replace(item, args.search, args.replace)
 
 def build_parser(args):
     """ A method to handle argparse. We do it this way so it's testable.
