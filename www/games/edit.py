@@ -6,6 +6,7 @@
 # text etc. do what you want the rhythm's gonna get you
 # <!-- END #MAPGAME# -->
 #
+#sed -i "/<!-- START #$BLOCKNAME# -->/,/<!-- END #$BLOCKNAME# -->/d" 
 # The text that's inserted comes from a file.
 # The operation's performed on all unnamed arguments.
 import os
@@ -13,26 +14,6 @@ import sys
 import doctest
 import csv
 import argparse
-
-BLOCKNAME=''
-FILE=''
-
-while [ "$1" != "" ]; do
-    case $1 in
-        -b | --blockname )
-            BLOCKNAME=$1
-            shift;;
-        -f | --file )
-            file=$1
-            shift;;
-    esac
-done
-
-# Remove the existing block
-#sed -i "/<!-- START #$BLOCKNAME# -->/,/<!-- END #$BLOCKNAME# -->/d" 
-#    echo "###START-$BLOCKNAME" >> 
-#    cat
-#    echo '###END-blockit' >> 
 
 class Replace:
     pass
@@ -51,7 +32,12 @@ def build_parser(args):
                                                     regex with the contents of a file.''',
                                      epilog='')
     parser.add_argument("files", action="append", nargs="*")
-    parser.add_argument("-v", "--verbose", dest="verbose", default=False, action="store_true")
+    parser.add_argument("-r", "--replace", dest="replace", default='',
+                        help="A string or a filepath to replace the regex pattern.")
+    parser.add_argument("-s", "--search", dest="search", default='',
+                        help="A regex to search for in the file.")
+    parser.add_argument("-v", "--verbose", dest="verbose",
+                        default=False, action="store_true")
     return parser.parse_args()
 
 if __name__ == '__main__':
