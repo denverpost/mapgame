@@ -14,6 +14,8 @@ import sys
 import doctest
 import csv
 import argparse
+import string
+import re
 
 class Replace:
     """ Extended search and replace functionality tuned toward maintaining
@@ -24,16 +26,46 @@ class Replace:
     def __init__(self, filename, search, replace):
         """ Set the variables.
             """
-        pass
+        self.filename = filename
+        self.search = search
+        if os.path.isfile(replace):
+            self.replace = self.read_file(replace)
 
-    def is_file(self, path):
-        """ Figure out if a string is a path to a file or just a string.
+    def read_file(self, filename):
+        """ Read a file, return its contents.
             """
-        pass
+        if filename == '':
+            fn = open(self.filename, 'r')
+        else:
+            fn = open(filename, 'r')
+        content = fn.read()
+        fn.close
+        return content
+
+    def write_file(self, content):
+        """ Write content to self.filename. Return True if nothing goes wrong.
+            """
+        fn = open(self.filename, 'w')
+        try:
+            # Only run this on non-unicode strings
+            if type(content) is not types.UnicodeType:
+                content = content.decode('utf-8', 'replace')
+        except (UnicodeError), e:
+            # Figure out what the position of the error is
+            regex = re.compile('.* position ([0-9]*):')
+            r = regex.search(e.__str__())
+            if len(r.groups()) > 0:
+                position = int(r.groups()[0])
+                str_range = [position - 10, position + 10]
+            print e, content[str_range[0]:str_range[1]]
+        fn.write(content.encode('utf-8', 'replace'))
+        fn.close
+        return True
 
     def replace(self):
         """ Look for the search pattern, then replace it with whatever.
             """
+        pass
 
 def main(args):
     """ 
