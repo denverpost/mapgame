@@ -17,6 +17,7 @@ import argparse
 import string
 import re
 import types
+import codecs
 
 class Replace:
     """ Extended search and replace functionality tuned toward maintaining
@@ -57,9 +58,9 @@ class Replace:
         """ Read a file, return its contents.
             """
         if filename == '':
-            fn = open(self.filename, 'r')
+            fn = codecs.open(self.filename, encoding='utf-8', mode='r')
         else:
-            fn = open(filename, 'r')
+            fn = codecs.open(filename, encoding='utf-8', mode='r')
         content = fn.read()
         fn.close
         return content
@@ -67,21 +68,8 @@ class Replace:
     def write_file(self, content):
         """ Write content to self.filename. Return True if nothing goes wrong.
             """
-        fn = open(self.filename, 'w')
-        try:
-            # Only run this on non-unicode strings
-            if type(content) is not types.UnicodeType:
-                content = content.decode('utf-8', 'replace')
-                fn.write(content)
-        except (UnicodeError), e:
-            # Figure out what the position of the error is
-            regex = re.compile('.* position ([0-9]*):')
-            r = regex.search(e.__str__())
-            if len(r.groups()) > 0:
-                position = int(r.groups()[0])
-                str_range = [position - 10, position + 10]
-            print e, content[str_range[0]:str_range[1]]
-            fn.write(content.encode('utf-8', 'replace'))
+        fn = codecs.open(self.filename, encoding='utf-8', mode='w')
+        fn.write(content)
         fn.close
         return True
 
