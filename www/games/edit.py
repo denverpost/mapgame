@@ -77,11 +77,6 @@ class Replace:
         fn.close
         return True
 
-    def replace(self):
-        """ Look for the search pattern, then replace it with whatever.
-            """
-        pass
-
 def main(args):
     """ 
         """
