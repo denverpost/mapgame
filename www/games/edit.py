@@ -27,9 +27,24 @@ class Replace:
         """ Set the variables.
             """
         self.filename = filename
+        self.content = self.read_file(filename)
         self.search = search
         if os.path.isfile(replace):
-            self.replace = self.read_file(replace)
+            self.replace_content = self.read_file(replace)
+        else:
+            self.replace_content = replace
+
+        content = self.replace()
+        if content != '':
+            self.write_file(content)
+
+    def replace(self):
+        """
+            """
+        content, changes_made = re.subn(self.search, self.replace_content, self.content,
+                                        re.MULTILINE|re.VERBOSE|re.IGNORECASE|re.DOTALL)
+        return content
+
 
     def read_file(self, filename):
         """ Read a file, return its contents.
