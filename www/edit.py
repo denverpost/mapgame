@@ -27,6 +27,8 @@ class Replace:
     def __init__(self, filename, search, replace, verbose):
         """ Set the variables.
             """
+        if verbose:
+            print filename,
         self.verbose = verbose
         self.filename = filename
         self.content = self.read_file(filename)
@@ -70,6 +72,7 @@ class Replace:
             # Only run this on non-unicode strings
             if type(content) is not types.UnicodeType:
                 content = content.decode('utf-8', 'replace')
+                fn.write(content)
         except (UnicodeError), e:
             # Figure out what the position of the error is
             regex = re.compile('.* position ([0-9]*):')
@@ -78,7 +81,7 @@ class Replace:
                 position = int(r.groups()[0])
                 str_range = [position - 10, position + 10]
             print e, content[str_range[0]:str_range[1]]
-        fn.write(content)
+            fn.write(content.encode('utf-8', 'replace'))
         fn.close
         return True
 
