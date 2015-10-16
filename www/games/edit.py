@@ -16,6 +16,7 @@ import csv
 import argparse
 import string
 import re
+import types
 
 class Replace:
     """ Extended search and replace functionality tuned toward maintaining
@@ -23,9 +24,10 @@ class Replace:
         flat files and include files to insert into them.
         """
 
-    def __init__(self, filename, search, replace):
+    def __init__(self, filename, search, replace, verbose):
         """ Set the variables.
             """
+        self.verbose = verbose
         self.filename = filename
         self.content = self.read_file(filename)
         self.search = search
@@ -37,12 +39,15 @@ class Replace:
         content = self.replace()
         if content != '':
             self.write_file(content)
+            #print content
 
     def replace(self):
         """
             """
         content, changes_made = re.subn(self.search, self.replace_content, self.content,
                                         re.MULTILINE|re.VERBOSE|re.IGNORECASE|re.DOTALL)
+        if self.verbose:
+            print changes_made
         return content
 
 
@@ -73,7 +78,7 @@ class Replace:
                 position = int(r.groups()[0])
                 str_range = [position - 10, position + 10]
             print e, content[str_range[0]:str_range[1]]
-        fn.write(content.encode('utf-8', 'replace'))
+        fn.write(content)
         fn.close
         return True
 
@@ -81,7 +86,7 @@ def main(args):
     """ 
         """
     for item in args.files[0]:
-        obj = Replace(item, args.search, args.replace)
+        obj = Replace(item, args.search, args.replace, args.verbose)
 
 def build_parser(args):
     """ A method to handle argparse. We do it this way so it's testable.
