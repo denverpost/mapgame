@@ -48,7 +48,7 @@ class Replace:
         """
             """
         content, changes_made = re.subn(self.search, self.replace_content, self.content,
-                                        re.MULTILINE|re.VERBOSE|re.IGNORECASE|re.DOTALL)
+                                        flags=re.MULTILINE|re.VERBOSE|re.IGNORECASE|re.DOTALL)
         if self.verbose:
             print changes_made
         return content
