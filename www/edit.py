@@ -25,11 +25,12 @@ class Replace:
         flat files and include files to insert into them.
         """
 
-    def __init__(self, filename, search, replace, verbose):
+    def __init__(self, filename, search, replace, append, verbose):
         """ Set the variables.
             """
         if verbose:
             print filename,
+        self.append = append
         self.verbose = verbose
         self.filename = filename
         self.content = self.read_file(filename)
@@ -51,8 +52,12 @@ class Replace:
                                         flags=re.MULTILINE|re.VERBOSE|re.IGNORECASE|re.DOTALL)
         if self.verbose:
             print changes_made
+        if changes_made == 0 and self.append:
+            self.append()
         return content
 
+    def append(self):
+        pass
 
     def read_file(self, filename):
         """ Read a file, return its contents.
@@ -77,7 +82,7 @@ def main(args):
     """ 
         """
     for item in args.files[0]:
-        obj = Replace(item, args.search, args.replace, args.verbose)
+        obj = Replace(item, args.search, args.replace, args.append, args.verbose)
 
 def build_parser(args):
     """ A method to handle argparse. We do it this way so it's testable.
@@ -89,6 +94,8 @@ def build_parser(args):
     parser.add_argument("files", action="append", nargs="*")
     parser.add_argument("-r", "--replace", dest="replace", default='',
                         help="A string or a filepath to replace the regex pattern.")
+    parser.add_argument("-a", "--append", dest="append", default='',
+                        help="A string or a filepath to replace the regex pattern.")
     parser.add_argument("-s", "--search", dest="search", default='',
                         help="A regex to search for in the file.")
     parser.add_argument("-v", "--verbose", dest="verbose",
@@ -97,8 +104,6 @@ def build_parser(args):
 
 if __name__ == '__main__':
     args = build_parser(sys.argv)
-
-    if args.verbose:
-        doctest.testmod(verbose=args.verbose)
-
+    #if args.verbose:
+    #    doctest.testmod(verbose=args.verbose)
     main(args)
