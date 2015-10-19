@@ -1,14 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Remove a block of text and put another block of text in its place.
-# Blocks of text, as of now, are demarcated as such:
-# <!-- START #MAPGAME# -->
-# text etc. do what you want the rhythm's gonna get you
-# <!-- END #MAPGAME# -->
-#
-#sed -i "/<!-- START #$BLOCKNAME# -->/,/<!-- END #$BLOCKNAME# -->/d" 
-# The text that's inserted comes from a file.
-# The operation's performed on all unnamed arguments.
+# The replacement text can be a string or the contents of a file.
 import os
 import sys
 import doctest
