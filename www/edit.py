@@ -18,25 +18,24 @@ class Replace:
         flat files and include files to insert into them.
         """
 
-    def __init__(self, filename, search, replace, append, verbose):
+    def __init__(self, filename, args):
         """ Set the variables.
             """
         if verbose:
             print filename,
-        self.append = append
-        self.verbose = verbose
+        self.append = args.append
+        self.verbose = args.verbose
         self.filename = filename
         self.content = self.read_file(filename)
-        self.search = search
-        if os.path.isfile(replace):
-            self.replace_content = self.read_file(replace)
+        self.search = args.search
+        if os.path.isfile(args.replace):
+            self.replace_content = self.read_file(args.replace)
         else:
-            self.replace_content = replace
+            self.replace_content = args.replace
 
         content = self.replace()
         if content != '':
             self.write_file(content)
-            #print content
 
     def replace(self):
         """
@@ -50,6 +49,8 @@ class Replace:
         return content
 
     def append(self):
+        """
+            """
         pass
 
     def read_file(self, filename):
@@ -75,7 +76,7 @@ def main(args):
     """ 
         """
     for item in args.files[0]:
-        obj = Replace(item, args.search, args.replace, args.append, args.verbose)
+        obj = Replace(item, args)
 
 def build_parser(args):
     """ A method to handle argparse. We do it this way so it's testable.
@@ -97,6 +98,6 @@ def build_parser(args):
 
 if __name__ == '__main__':
     args = build_parser(sys.argv)
-    #if args.verbose:
-    #    doctest.testmod(verbose=args.verbose)
+    if args.verbose:
+        doctest.testmod(verbose=args.verbose)
     main(args)
