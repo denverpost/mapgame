@@ -8,7 +8,7 @@
       <color>ff0000ff</color>
     </LineStyle>
 </Style>
-    <MultiGeometry><Polygon><outerBoundaryIs><LinearRing>
-    </LinearRing></innerBoundaryIs></Polygon></MultiGeometry>
+<Polygon><outerBoundaryIs><LinearRing>
+</LinearRing></outerBoundaryIs></Polygon>
 </Placemark>
 </kml>
