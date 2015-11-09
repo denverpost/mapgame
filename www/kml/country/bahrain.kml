@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="country-bahrain.kml">
+<name>Bahrain</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+<Polygon><outerBoundaryIs><LinearRing>
+<coordinates>50.60727827,25.88312328 50.57492883,25.80679719 50.54402632,25.8335139 50.46589155,25.96554719 50.48945601,26.05846141 50.45245568,26.19080476 50.46992232,26.22894196 50.56407678,26.24643443 50.58588423,26.24072419 50.55777225,26.19829784 50.60975874,26.12445222 50.61751021,26.00234081 50.60727827,25.88312328</coordinates>
+</LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+</kml>
