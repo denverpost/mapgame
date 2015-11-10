@@ -161,16 +161,28 @@ var mapg = {
                     var people = "people";
                     if ( data.correct == 1 ) people = "person";
 
-                    var percent = Math.round(data.correct/data.guesses*1000)/10;
+                    var percent_right = Math.round(data.correct/data.guesses*1000)/10;
                     if ( data.guesses == 0 ) percent = 0;
 
-                    $('#result').append(' ' + data.correct + ' ' + people + ' (' + percent + '%) picked right.');
+                    $('#result').append(' ' + data.correct + ' ' + people + ' (' + percent_right + '%) picked right.');
 
-                    // Calculate the percent of people they did worse than.
+                    // Calculate the percent of people they did worse / better than.
                     var esses = "es";
                     if ( data.worse_than == 1 ) esses = "";
-                    percent = Math.round(data.worse_than/data.guesses*1000)/10;
-                    $('#result').append('<br><br>Your guess was further away than ' + data.worse_than + ' other guess' + esses + '. That means you did worse than ' + percent + '% of the people who played this.');
+                    percent_further = Math.round(data.worse_than/data.guesses*1000)/10;
+                    percent_better = 100 - percent_right;
+                    var better_than = data.guesses - data.correct;
+
+                    // If they didn't do worse than anyone, we give them a
+                    // positive message of accomplishment
+                    if ( data.worse_than == 0 )
+                    {
+                        if ( better_than == 1 ) esses = "";
+                        $('#result').append('<br><br>Your guess was closer than ' + better_than + ' other guess' + esses + '. That means you did better than ' + percent_better + '% of the people who played this, and tied the other ' + percent_right + '%');
+                    else
+                    {
+                        $('#result').append('<br><br>Your guess was further away than ' + data.worse_than + ' other guess' + esses + '. That means you did worse than ' + percent_further + '% of the people who played this.');
+                    }
 
                     if ( distance == 0 && data.correct == 1 )
                     {

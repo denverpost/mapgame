@@ -21,37 +21,44 @@ class Replace:
     def __init__(self, filename, args):
         """ Set the variables.
             """
-        if verbose:
+        if args.verbose:
             print filename,
         self.append = args.append
         self.verbose = args.verbose
         self.filename = filename
         self.content = self.read_file(filename)
         self.search = args.search
+        self.changes_made = False
         if os.path.isfile(args.replace):
             self.replace_content = self.read_file(args.replace)
         else:
             self.replace_content = args.replace
 
-        content = self.replace()
+        content, changes_made = self.replace_it()
+        if changes_made == 0 and self.append:
+            # If we don't find what we're searching for, try this.
+            print "APPEND: ", self.append
+            content, changes_made = self.replace_it(self.append, 1)
+
         if content != '':
             self.write_file(content)
 
-    def replace(self):
+    def replace_it(self, search=None, append=0):
         """
             """
-        content, changes_made = re.subn(self.search, self.replace_content, self.content,
+        if not search:
+            search = self.search
+
+        replace = self.replace_content
+        if append != 0:
+            replace += search
+
+        content, changes_made = re.subn(search, replace, self.content,
                                         flags=re.MULTILINE|re.VERBOSE|re.IGNORECASE|re.DOTALL)
+        self.changes_made = changes_made
         if self.verbose:
             print changes_made
-        if changes_made == 0 and self.append:
-            self.append()
-        return content
-
-    def append(self):
-        """
-            """
-        pass
+        return content, changes_made
 
     def read_file(self, filename):
         """ Read a file, return its contents.
@@ -73,13 +80,16 @@ class Replace:
         return True
 
 def main(args):
-    """ 
+    """ The main method.
+        >>> args = build_parser(['--verbose', '--search=heyheyhey', '--replace=boo', 'games/test.html'])
+        >>> a = build_parser(args)
+        >>> main(a)
         """
     for item in args.files[0]:
         obj = Replace(item, args)
 
 def build_parser(args):
-    """ A method to handle argparse. We do it this way so it's testable.
+    """ A method to handle argparse. We do it this way so arguments are testable.
         """
     parser = argparse.ArgumentParser(usage='$ python edit.py',
                                      description='''Edits a file, replacing a
