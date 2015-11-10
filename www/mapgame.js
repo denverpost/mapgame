@@ -170,7 +170,7 @@ var mapg = {
                     var esses = "es";
                     if ( data.worse_than == 1 ) esses = "";
                     percent_further = Math.round(data.worse_than/data.guesses*1000)/10;
-                    percent_better = 100 - percent_right;
+                    percent_better = Math.round((100 - percent_right)*10)/10;
                     var better_than = data.guesses - data.correct;
 
                     // If they didn't do worse than anyone, we give them a
@@ -179,6 +179,7 @@ var mapg = {
                     {
                         if ( better_than == 1 ) esses = "";
                         $('#result').append('<br><br>Your guess was closer than ' + better_than + ' other guess' + esses + '. That means you did better than ' + percent_better + '% of the people who played this, and tied the other ' + percent_right + '%');
+                    }
                     else
                     {
                         $('#result').append('<br><br>Your guess was further away than ' + data.worse_than + ' other guess' + esses + '. That means you did worse than ' + percent_further + '% of the people who played this.');
