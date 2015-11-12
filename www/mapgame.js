@@ -203,10 +203,7 @@ var mapg = {
 
             // If this map is part of a group game, communicate the distance to the parent frame.
             // Group games, as of now, will be a bunch of iframes.
-            if ( typeof parent.map_group !== 'undefined' )
-            {
-                parent.map_group.add_guess(distance);
-            }
+            window.parent.postMessage({distance: distance}, '*');
         }
     },
     great_circle: function (lat1, lon1, lat2, lon2)
