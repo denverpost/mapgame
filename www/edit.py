@@ -108,6 +108,6 @@ def build_parser(args):
 
 if __name__ == '__main__':
     args = build_parser(sys.argv)
-    if args.verbose:
-        doctest.testmod(verbose=args.verbose)
+    #if args.verbose:
+    #    doctest.testmod(verbose=args.verbose)
     main(args)

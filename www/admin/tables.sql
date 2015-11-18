@@ -36,3 +36,12 @@ CREATE TABLE `count` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
+# To give more insight into the group games
+CREATE TABLE `group_guesses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `games_id` int(11) NOT NULL,
+  `correct` float NOT NULL,
+  `ip` varchar(30) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `games_id` (`games_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=64391 DEFAULT CHARSET=utf8 COLLATE=utf8_bin

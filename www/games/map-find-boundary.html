@@ -122,14 +122,14 @@
   </script>
   <!-- End Google Tag Manager Data Layer -->
 <!-- Google Tag Manager --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TLFP4R" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><script>
-(function(w,d,s,l,i) {
+if ( iframe == "" ) { (function(w,d,s,l,i) {
    w[l]=w[l]||[];
    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
    j.async=true;
    j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })
-(window,document,'script','dataLayer','GTM-TLFP4R');
+(window,document,'script','dataLayer','GTM-TLFP4R'); }
 </script><!-- End Google Tag Manager -->
     <h1>Arizona Map Game</h1>
 
@@ -194,6 +194,7 @@ $(document).ready( function () {
     </style>
 
     <!--STARTMAPNAV-->
+<nav>
 <h3>Previous map games</h3>
 <h4 id="colorado-map">Colorado Map Games</h4>
 <ul>
@@ -240,8 +241,12 @@ $(document).ready( function () {
 <li><a href="ecuador.html">Where is Ecuador?</a></li>
 <li><a href="bahrain.html">Where is Bahrain?</a></li>
 <li><a href="united-arab-emirates.html">Where is the United Arab Emirates?</a></li>
+<li><a href="lebanon.html">Where is Lebanon?</a></li>
+<li><a href="paris.html">Where is Paris?</a></li>
 </ul>
+</nav>
 <!--ENDMAPNAV-->
+
 
 
     <!-- END #MAPGAME# -->
@@ -320,7 +325,7 @@ $(document).ready( function () {
     <script>
         if ( iframe === 1 )
         {
-            $('h1, footer, #previous').remove()
+            $('h1, footer, nav, #previous').remove()
         }
     </script>
 </body>
