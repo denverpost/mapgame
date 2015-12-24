@@ -25,7 +25,7 @@ var mapg = {
             var geoxml_config = {
                 map: this.map,
                 processStyles: true,
-                zoom: false,
+                zoom: true,
                 createOverlay: this.create_overlay,
                 createMarker: this.create_marker
             };
