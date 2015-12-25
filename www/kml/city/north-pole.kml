@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="city-north-pole">
+<name>North Pole, Alaska</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+<Polygon><outerBoundaryIs><LinearRing>
+<coordinates>
+-147.4317,64.7791
+-147.3177,64.7759
+-147.2903,64.7366
+-147.3466,64.7273
+-147.3933,64.7425
+-147.3994,64.7630
+-147.4379,64.7659
+</coordinates>
+</LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+</kml>
