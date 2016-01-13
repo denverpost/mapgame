@@ -25,7 +25,7 @@ var mapg = {
             var geoxml_config = {
                 map: this.map,
                 processStyles: true,
-                zoom: true,
+                zoom: false,
                 createOverlay: this.create_overlay,
                 createMarker: this.create_marker
             };
@@ -84,7 +84,7 @@ var mapg = {
     {
         zoom: 8,
         center: new google.maps.LatLng(0, 0),
-        disableDefaultUI: true,
+        disableDefaultUI: false,
         //mapTypeId: google.maps.MapTypeId.SATELLITE,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         disableDoubleClickZoom: true,
