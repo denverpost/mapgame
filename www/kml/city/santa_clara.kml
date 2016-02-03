@@ -4,8 +4,8 @@
 <name></name>
   <Style>
     <LineStyle>
-      <width>1</width> 
-      <color>ff0000ff</color>
+      <width>3</width> 
+      <color>0000ffff</color>
     </LineStyle>
   </Style>
 <Polygon><outerBoundaryIs><LinearRing>
