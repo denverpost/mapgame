@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="city-omaha">
+<name>Omaha</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+<Polygon><outerBoundaryIs><LinearRing>
+-96.2718,41.2453
+-96.2794,41.3495
+-95.9058,41.3577
+-95.8880,41.3175
+-95.8722,41.3005
+-95.8763,41.2809
+-95.9052,41.2768
+-95.9065,41.2375
+-95.9278,41.2174
+-95.9251,41.1885
+-96.2766,41.2066
+-96.2718,41.2432
+</LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+</kml>
