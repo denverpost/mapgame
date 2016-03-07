@@ -9,6 +9,7 @@
     </LineStyle>
   </Style>
 <Polygon><outerBoundaryIs><LinearRing>
+             <coordinates>
 -96.2718,41.2453
 -96.2794,41.3495
 -95.9058,41.3577
@@ -21,6 +22,7 @@
 -95.9251,41.1885
 -96.2766,41.2066
 -96.2718,41.2432
+             </coordinates>
 </LinearRing></outerBoundaryIs></Polygon>
 </Placemark>
 </kml>
