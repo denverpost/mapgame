@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="city-fort_collins">
+<name>Fort Collins</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+<Polygon><outerBoundaryIs><LinearRing>
+<coordinates>
+-105.134354,40.481426,0.0 
+-104.994278,40.482471,0.0 
+-104.996338,40.538330,0.0 
+-105.005951,40.563895,0.0 
+-105.003891,40.623334,0.0 
+-105.025864,40.625940,0.0 
+-105.045776,40.635320,0.0 
+-105.154266,40.578499,0.0 
+-105.152893,40.558156,0.0 
+-105.144653,40.533633,0.0 
+</coordinates>
+</LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+</kml>

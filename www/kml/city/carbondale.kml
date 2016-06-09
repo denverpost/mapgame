@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
-<Placemark id="city-aspen">
-<name>Aspen</name>
+<Placemark id="city-carbondale">
+<name>Carbondale</name>
   <Style>
     <LineStyle>
       <width>1</width> 
@@ -10,13 +10,14 @@
   </Style>
 <Polygon><outerBoundaryIs><LinearRing>
 <coordinates>
--106.876373,39.234779,0.0 
--106.862297,39.235577,0.0 
--106.807880,39.195146,0.0 
--106.800327,39.184635,0.0 
--106.803761,39.177316,0.0 
--106.835346,39.187030,0.0 
--106.868477,39.206453,0.0 
+-107.225189,39.414844,0.0 
+-107.201672,39.413783,0.0 
+-107.199955,39.388183,0.0 
+-107.212143,39.374118,0.0 
+-107.216606,39.374782,0.0 
+-107.225361,39.395479,0.0 
+-107.238407,39.417497,0.0 
+-107.225018,39.415110,0.0 
 </coordinates>
 </LinearRing></outerBoundaryIs></Polygon>
 </Placemark>

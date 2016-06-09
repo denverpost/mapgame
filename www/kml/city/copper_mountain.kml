@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
-<Placemark id="city-aspen">
-<name>Aspen</name>
+<Placemark id="city-copper_mountain">
+<name>Copper Mountain</name>
   <Style>
     <LineStyle>
       <width>1</width> 
@@ -10,13 +10,13 @@
   </Style>
 <Polygon><outerBoundaryIs><LinearRing>
 <coordinates>
--106.876373,39.234779,0.0 
--106.862297,39.235577,0.0 
--106.807880,39.195146,0.0 
--106.800327,39.184635,0.0 
--106.803761,39.177316,0.0 
--106.835346,39.187030,0.0 
--106.868477,39.206453,0.0 
+-106.156297,39.501888,0.0 
+-106.144280,39.504670,0.0 
+-106.141276,39.503544,0.0 
+-106.138701,39.497252,0.0 
+-106.145267,39.496855,0.0 
+-106.151319,39.497749,0.0 
+-106.155953,39.498312,0.0 
 </coordinates>
 </LinearRing></outerBoundaryIs></Polygon>
 </Placemark>
