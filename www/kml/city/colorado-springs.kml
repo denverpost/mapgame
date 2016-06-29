@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="city-colorado_springs">
+<name>Colorado Springs</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+<Polygon><outerBoundaryIs><LinearRing>
+-104.8851,38.9509
+-104.8082,38.9423
+-104.8302,39.0277
+-104.7670,39.0331
+-104.7313,39.0000
+-104.6983,38.9978
+-104.6983,38.9380
+-104.6201,38.9402
+-104.6146,38.7455
+-104.6709,38.7423
+-104.6860,38.7734
+-104.7189,38.7712
+-104.7368,38.7894
+-104.7670,38.7809
+-104.7601,38.7648
+-104.8068,38.7648
+-104.8068,38.7412
+-104.8370,38.7434
+-104.8920,38.8119
+</LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+</kml>
