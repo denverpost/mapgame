@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark id="city-moscow">
+<name>Moscow</name>
+  <Style>
+    <LineStyle>
+      <width>1</width> 
+      <color>ff0000ff</color>
+    </LineStyle>
+  </Style>
+<Polygon><outerBoundaryIs><LinearRing>
+<coordinates>
+37.221680,55.758032,0.0 
+37.617188,56.010666,0.0 
+37.990723,55.961501,0.0 
+38.100586,55.733296,0.0 
+37.847900,55.547281,0.0 
+37.287598,55.565922,0.0 
+37.221680,55.758032,0.0 
+</coordinates>
+</LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+</kml>
