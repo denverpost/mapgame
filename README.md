@@ -1,12 +1,15 @@
 # Map Game
 Make a "Where Is X (Country / City / Point of Interest) On The Map?" game.
 
-# Getting Started
-# Usage
-Here's how you would create a Map Game for your site:
-...
+# How-To's
 
-## Yes! I Want A Dev Environment
+## How to create a map game
+1. Figure out the place you want to guess.
+1. Create the KML file(s) for the place, add them to repo.
+1. Create the database record for the place -- [www/newgame.bash](www/newgame.bash) streamlines this process, and should be run from the command line of the server you're running this on.
+1. Create the markup for the particular mapgame. [Here's one example of this](www/games/map-find-boundary.html)
+
+## How to get started with a dev environment
 1. Check out this repo. `git clone git@github.com:denverpost/mapgame.git`
 1. Symlink the repo's www directory into an active webserver on your computer.
 1. To start on testing the backend, take a look at the sql in www/admin/tables.sql
