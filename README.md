@@ -8,14 +8,14 @@ Make a "Where Is X (Country / City / Point of Interest) On The Map?" game.
 1. Create the KML file(s) for the place, add them to repo.
 1. Create the database record for the place -- [www/newgame.bash](www/newgame.bash) streamlines this process, and should be run from the command line of the server you're running this on.
 1. Create the markup for the particular mapgame. [Here's one example of this](www/games/map-find-boundary.html)
+1. Upload the markup to production ([example](http://extras.denverpost.com/app/mapgame/games/moscow.html)), then iframe it into an article.
 
 ## How to get started with a dev environment
 1. Check out this repo. `git clone git@github.com:denverpost/mapgame.git`
 1. Symlink the repo's www directory into an active webserver on your computer.
 1. To start on testing the backend, take a look at the sql in www/admin/tables.sql
 
-License
-----------
+# License
 
 The MIT License (MIT)
 
